@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-09-04 17:56:45.106
+-- Last modification date: 2017-09-04 18:15:13.225
 
 -- tables
 -- Table: Movimentacao
@@ -68,6 +68,17 @@ CREATE TABLE Usuario (
     PerfilUsuario_id integer NOT NULL,
     CONSTRAINT Usuario_PerfilUsuario FOREIGN KEY (PerfilUsuario_id)
     REFERENCES PerfilUsuario (id)
+);
+
+-- Table: admin_web
+CREATE TABLE admin_web (
+    id integer NOT NULL CONSTRAINT admin_web_pk PRIMARY KEY AUTOINCREMENT,
+    Usuario_id integer NOT NULL,
+    TipoObjeto_id integer NOT NULL,
+    CONSTRAINT admin_web_Usuario FOREIGN KEY (Usuario_id)
+    REFERENCES Usuario (id),
+    CONSTRAINT admin_web_TipoObjeto FOREIGN KEY (TipoObjeto_id)
+    REFERENCES TipoObjeto (id)
 );
 
 -- End of file.
