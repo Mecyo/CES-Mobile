@@ -1,0 +1,74 @@
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2017-09-04 17:56:45.106
+
+-- tables
+-- Table: Movimentacao
+CREATE TABLE Movimentacao (
+    id integer NOT NULL CONSTRAINT Movimentacao_pk PRIMARY KEY,
+    Retirada datetime,
+    Devolucao datetime,
+    Objeto_id integer NOT NULL,
+    Usuario_id integer NOT NULL,
+    CONSTRAINT Movimentacao_Objeto FOREIGN KEY (Objeto_id)
+    REFERENCES Objeto (id),
+    CONSTRAINT Movimentacao_Usuario FOREIGN KEY (Usuario_id)
+    REFERENCES Usuario (id)
+);
+
+-- Table: Objeto
+CREATE TABLE Objeto (
+    id integer NOT NULL CONSTRAINT Objeto_pk PRIMARY KEY AUTOINCREMENT,
+    TipoObjeto_id integer NOT NULL,
+    nome varchar(30) NOT NULL,
+    CONSTRAINT Objeto_TipoObjeto FOREIGN KEY (TipoObjeto_id)
+    REFERENCES TipoObjeto (id)
+);
+
+-- Table: PerfilUsuario
+CREATE TABLE PerfilUsuario (
+    id integer NOT NULL CONSTRAINT PerfilUsuario_pk PRIMARY KEY AUTOINCREMENT,
+    nome varchar(30) NOT NULL
+);
+
+-- Table: Permissao_Objeto_x_PerfilUsuario
+CREATE TABLE Permissao_Objeto_x_PerfilUsuario (
+    id integer NOT NULL CONSTRAINT Permissao_Objeto_x_PerfilUsuario_pk PRIMARY KEY AUTOINCREMENT,
+    PerfilUsuario_id integer NOT NULL,
+    TipoObjeto_id integer NOT NULL,
+    CONSTRAINT Permissao_Objeto_x_PerfilUsuario_PerfilUsuario FOREIGN KEY (PerfilUsuario_id)
+    REFERENCES PerfilUsuario (id),
+    CONSTRAINT Permissao_Objeto_x_PerfilUsuario_TipoObjeto FOREIGN KEY (TipoObjeto_id)
+    REFERENCES TipoObjeto (id)
+);
+
+-- Table: Permissao_Objeto_x_Usuario
+CREATE TABLE Permissao_Objeto_x_Usuario (
+    id integer NOT NULL CONSTRAINT Permissao_Objeto_x_Usuario_pk PRIMARY KEY AUTOINCREMENT,
+    Usuario_id integer NOT NULL,
+    Objeto_id integer NOT NULL,
+    CONSTRAINT Permissao_Objeto_x_Usuario_Usuario FOREIGN KEY (Usuario_id)
+    REFERENCES Usuario (id),
+    CONSTRAINT Permissao_Objeto_x_Usuario_Objeto FOREIGN KEY (Objeto_id)
+    REFERENCES Objeto (id)
+);
+
+-- Table: TipoObjeto
+CREATE TABLE TipoObjeto (
+    id integer NOT NULL CONSTRAINT TipoObjeto_pk PRIMARY KEY AUTOINCREMENT,
+    nome varchar(30),
+    TipoObjeto_id integer NOT NULL
+);
+
+-- Table: Usuario
+CREATE TABLE Usuario (
+    id integer NOT NULL CONSTRAINT Usuario_pk PRIMARY KEY,
+    nome integer NOT NULL,
+    login integer NOT NULL,
+    senha integer NOT NULL,
+    PerfilUsuario_id integer NOT NULL,
+    CONSTRAINT Usuario_PerfilUsuario FOREIGN KEY (PerfilUsuario_id)
+    REFERENCES PerfilUsuario (id)
+);
+
+-- End of file.
+
