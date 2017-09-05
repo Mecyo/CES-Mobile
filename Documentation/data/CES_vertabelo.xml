@@ -108,18 +108,9 @@
                 </Column>
                 <Column Id="c2">
                     <Name>nome</Name>
-                    <Type>varchar(30)</Type>
+                    <Type>varchar(50)</Type>
                     <Description></Description>
                     <Nullable>true</Nullable>
-                    <DefaultValue></DefaultValue>
-                    <CheckExpression></CheckExpression>
-                    <Properties/>
-                </Column>
-                <Column Id="c7">
-                    <Name>TipoObjeto_id</Name>
-                    <Type>integer</Type>
-                    <Description></Description>
-                    <Nullable>false</Nullable>
                     <DefaultValue></DefaultValue>
                     <CheckExpression></CheckExpression>
                     <Properties/>
@@ -167,7 +158,7 @@
                 </Column>
                 <Column Id="c10">
                     <Name>nome</Name>
-                    <Type>varchar(30)</Type>
+                    <Type>varchar(50)</Type>
                     <Description></Description>
                     <Nullable>false</Nullable>
                     <DefaultValue></DefaultValue>
@@ -262,11 +253,16 @@
                     <Nullable>false</Nullable>
                     <DefaultValue></DefaultValue>
                     <CheckExpression></CheckExpression>
-                    <Properties/>
+                    <Properties>
+                        <Property>
+                            <Name>autoincrement</Name>
+                            <Value>true</Value>
+                        </Property>
+                    </Properties>
                 </Column>
                 <Column Id="c16">
                     <Name>nome</Name>
-                    <Type>integer</Type>
+                    <Type>varchar(250)</Type>
                     <Description></Description>
                     <Nullable>false</Nullable>
                     <DefaultValue></DefaultValue>
@@ -274,8 +270,8 @@
                     <Properties/>
                 </Column>
                 <Column Id="c17">
-                    <Name>login</Name>
-                    <Type>integer</Type>
+                    <Name>email</Name>
+                    <Type>varchar(50)</Type>
                     <Description></Description>
                     <Nullable>false</Nullable>
                     <DefaultValue></DefaultValue>
@@ -284,7 +280,7 @@
                 </Column>
                 <Column Id="c18">
                     <Name>senha</Name>
-                    <Type>integer</Type>
+                    <Type>text</Type>
                     <Description></Description>
                     <Nullable>false</Nullable>
                     <DefaultValue></DefaultValue>
@@ -334,7 +330,7 @@
                 </Column>
                 <Column Id="c20">
                     <Name>nome</Name>
-                    <Type>varchar(30)</Type>
+                    <Type>varchar(50)</Type>
                     <Description></Description>
                     <Nullable>false</Nullable>
                     <DefaultValue></DefaultValue>
@@ -737,7 +733,7 @@
         <TableDisplay Id="td4">
             <X>7269.5</X>
             <Y>7100.5</Y>
-            <Width>162.0</Width>
+            <Width>193.0</Width>
             <Height>102.0</Height>
             <LineColor>#000000</LineColor>
             <FillColor>#ffffff</FillColor>
@@ -926,11 +922,11 @@
             <Type>Vertical_4CP</Type>
             <ControlPoints>
                 <ControlPoint>
-                    <X>6839.5</X>
+                    <X>6848.5</X>
                     <Y>7160.5</Y>
                 </ControlPoint>
                 <ControlPoint>
-                    <X>6839.5</X>
+                    <X>6848.5</X>
                     <Y>7129.5</Y>
                 </ControlPoint>
                 <ControlPoint>

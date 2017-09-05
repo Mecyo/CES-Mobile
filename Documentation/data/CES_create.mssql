@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-09-04 18:15:13.225
+-- Last modification date: 2017-09-05 12:35:31.321
 
 -- tables
 -- Table: Movimentacao
@@ -19,7 +19,7 @@ CREATE TABLE Movimentacao (
 CREATE TABLE Objeto (
     id integer NOT NULL CONSTRAINT Objeto_pk PRIMARY KEY AUTOINCREMENT,
     TipoObjeto_id integer NOT NULL,
-    nome varchar(30) NOT NULL,
+    nome varchar(50) NOT NULL,
     CONSTRAINT Objeto_TipoObjeto FOREIGN KEY (TipoObjeto_id)
     REFERENCES TipoObjeto (id)
 );
@@ -27,7 +27,7 @@ CREATE TABLE Objeto (
 -- Table: PerfilUsuario
 CREATE TABLE PerfilUsuario (
     id integer NOT NULL CONSTRAINT PerfilUsuario_pk PRIMARY KEY AUTOINCREMENT,
-    nome varchar(30) NOT NULL
+    nome varchar(50) NOT NULL
 );
 
 -- Table: Permissao_Objeto_x_PerfilUsuario
@@ -55,16 +55,15 @@ CREATE TABLE Permissao_Objeto_x_Usuario (
 -- Table: TipoObjeto
 CREATE TABLE TipoObjeto (
     id integer NOT NULL CONSTRAINT TipoObjeto_pk PRIMARY KEY AUTOINCREMENT,
-    nome varchar(30),
-    TipoObjeto_id integer NOT NULL
+    nome varchar(50)
 );
 
 -- Table: Usuario
 CREATE TABLE Usuario (
-    id integer NOT NULL CONSTRAINT Usuario_pk PRIMARY KEY,
-    nome integer NOT NULL,
-    login integer NOT NULL,
-    senha integer NOT NULL,
+    id integer NOT NULL CONSTRAINT Usuario_pk PRIMARY KEY AUTOINCREMENT,
+    nome varchar(250) NOT NULL,
+    email varchar(50) NOT NULL,
+    senha text NOT NULL,
     PerfilUsuario_id integer NOT NULL,
     CONSTRAINT Usuario_PerfilUsuario FOREIGN KEY (PerfilUsuario_id)
     REFERENCES PerfilUsuario (id)
