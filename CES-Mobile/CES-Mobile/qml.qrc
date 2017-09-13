@@ -4,5 +4,11 @@
         <file>Page1.qml</file>
         <file>Page1Form.ui.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>Home.qml</file>
+        <file>HomeForm.ui.qml</file>
+        <file>IconTab.qml</file>
+        <file>HomeTabViewStyle.qml</file>
+        <file alias="home.png">images/home.png</file>
+        <file alias="file-find.png">images/file-find.png</file>
     </qresource>
 </RCC>

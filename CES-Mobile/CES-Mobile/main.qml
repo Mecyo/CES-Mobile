@@ -1,3 +1,6 @@
+import QtQuick 2.5
+import QtQuick.Window 2.2
+import QtQuick.Controls 1.0
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
@@ -8,10 +11,28 @@ ApplicationWindow {
     height: 480
     title: qsTr("Controle de Entrada e Saída")
 
+    TabView {
+        id: tabView
+        currentIndex: swipeView.currentIndex
+        anchors.fill: parent
+
+        style: HomeTabViewStyle{}
+
+        IconTab {
+            //title: "Tab #1"
+            icon: "home.png"
+        }
+        IconTab{
+            //title: "Tab #3"
+            icon: "file-find.png"
+        }
+
+    }
+
     SwipeView {
         id: swipeView
         anchors.fill: parent
-        currentIndex: tabBar.currentIndex
+        currentIndex: tabView.currentIndex
 
         Page1 {
         }
