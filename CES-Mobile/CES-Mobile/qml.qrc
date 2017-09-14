@@ -1,14 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Page1.qml</file>
-        <file>Page1Form.ui.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>Home.qml</file>
-        <file>HomeForm.ui.qml</file>
-        <file>IconTab.qml</file>
-        <file>HomeTabViewStyle.qml</file>
-        <file alias="home.png">images/home.png</file>
-        <file alias="file-find.png">images/file-find.png</file>
+        <file>MenuSwipe.qml</file>
+        <file>Page1.qml</file>
+        <file>Page2.qml</file>
+        <file>Page3.qml</file>
+        <file>Page4.qml</file>
+        <file>AwesomeIcon/Awesome.js</file>
+        <file>AwesomeIcon/AwesomeIcon.qml</file>
+        <file>AwesomeIcon/AwesomeIcon.qrc</file>
+        <file>AwesomeIcon/FontAwesome.otf</file>
     </qresource>
 </RCC>
