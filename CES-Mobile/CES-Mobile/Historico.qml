@@ -3,11 +3,12 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 
 Page {
-    title: "page4"
-    objectName: "page4"
+    id: page
+    title: "Histórico"
+    objectName: "Histórico"
     Label {
         visible: true
-        text: "Page4"
+        text: "Histórico"
         anchors.centerIn: parent
     }
 }

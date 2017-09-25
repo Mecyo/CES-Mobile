@@ -4,11 +4,11 @@ import QtQuick.Controls.Material 2.1
 
 Page {
     id: page
-    title: "page1"
-    objectName: "page1"
+    title: "Home"
+    objectName: "Home"
     Label {
         visible: true
-        text: "Page1"
+        text: "Home"
         anchors.centerIn: parent
     }
 }

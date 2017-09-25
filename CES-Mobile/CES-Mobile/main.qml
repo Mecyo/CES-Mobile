@@ -16,8 +16,6 @@ ApplicationWindow {
     property alias depth: pageStack.depth
 
     onDepthChanged:  depthChange()
-    onCurrentPageSwipeChanged: currentPageSwipe ? toolbarText.text = currentPageSwipe.objectName : ""
-    onCurrentPageChanged: currentPage ? toolbarText.text = currentPage.objectName : ""
 
     function depthChange() {
         if(!menuSwipe)
@@ -25,7 +23,6 @@ ApplicationWindow {
         if(depth === 0){
             isSwipeView = true
             menuSwipe.tabBarChild.visible = true
-            toolbarText.text = currentPageSwipe.objectName
             menuSwipe.z = windowApp.z + 1
             pageStack.z = windowApp.z - 1
         } else {
@@ -50,7 +47,7 @@ ApplicationWindow {
         id: toolbar1
         Rectangle {
             anchors.fill: parent
-            color: "#006600"
+            color: "#b3f0ff"
         }
         anchors.leftMargin: 10
 
@@ -65,23 +62,46 @@ ApplicationWindow {
                 size: 22
                 onClicked: popPage()
             }
-            Label {
-                id: toolbarText
-                text: currentPage !== null ? currentPage.objectName : currentPageSwipe.objectName
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                Layout.fillWidth: true
-                anchors.centerIn: parent
+
+            Column {
+                Label {
+                    text: "CES"
+                    font.pixelSize: 20
+                    font.bold: true
+                }
+                Label {
+                    text: "Sistema de Controle de Entrada e Saída de Objetos"
+                    font.pixelSize: 9
+                }
+            }
+
+            RowLayout {
+                anchors.top: parent.top
+                spacing: 5
+                Label {
+                    text: "Olá, Session[usuario]"
+                    font.pixelSize: 9
+                }
+                AwesomeIcon.AwesomeIcon {
+                    name: "user"
+                    color: "black"
+                    size: 12
+                    onClicked: popPage()
+                }
+                AwesomeIcon.AwesomeIcon {
+                    name: "gear"
+                    color: "black"
+                    size: 12
+                    onClicked: popPage()
+                }
             }
         }
     }
 
     MenuSwipe {
         id: menuSwipe
+        anchors.top: parent.top
     }
-
-    footer: menuSwipe.tabBarChild
 
     StackView {
         id: pageStack

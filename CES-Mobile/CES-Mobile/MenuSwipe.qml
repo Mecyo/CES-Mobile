@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.3
 
 import "./AwesomeIcon/" as AwesomeIcon
 
-Pane {
+Page {
     anchors.fill: parent
 
     property alias tabBarChild: tabBar
@@ -16,16 +16,26 @@ Pane {
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
-        Page1 {
+        Home {
+
+        }     
+        Retirar {
 
         }
-        Page2 {
+        Reservar {
 
         }
+        Transferencia {
+
+        }
+        Historico {
+
+        }
+
     }
 
 
-    TabBar {
+    header: TabBar {
         id: tabBar
         visible: swipe.visible
         currentIndex: swipe.currentIndex
@@ -35,24 +45,15 @@ Pane {
             model: listModel
             TabButton {
                 height: 35
-                Rectangle {anchors.fill: parent; color: Qt.rgba(0, 102, 0, 0.3)}
+                Rectangle {anchors.fill: parent; color: "transparent"}
 
                 ColumnLayout {
                     spacing: 0; height: parent.height
                     anchors.centerIn: parent
 
-                    AwesomeIcon.AwesomeIcon {
-                        id: icon1
-                        size: 10
-                        color: "black"
-                        name: iconText
-                        clickEnabled: false
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-
                     Text {
                         text: name
-                        color: icon1.color
+                        font.pixelSize: 10
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
@@ -62,7 +63,10 @@ Pane {
 
     ListModel {
         id: listModel
-        ListElement { name: "Page1"; iconText: "cut"}
-        ListElement { name: "Page2"; iconText: "paperclip"}
+        ListElement { name: "Home"}
+        ListElement { name: "Retirar"}
+        ListElement { name: "Reservar"}
+        ListElement { name: "Transferência"}
+        ListElement { name: "Histórico"}
     }
 }
