@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.2
 
 import "./AwesomeIcon/" as AwesomeIcon
 
@@ -9,6 +10,7 @@ ApplicationWindow {
     visible: true
     width: 400
     height: 480
+    title: menuSwipe.swipeChildCurrentItem.title
 
     property bool isSwipeView: true
     property alias currentPage: pageStack.currentItem
@@ -41,6 +43,14 @@ ApplicationWindow {
         if(depth === 1)
             pageStack.clear()
         pageStack.pop()
+    }
+
+    function dialog(title, text) {
+        if(title)
+            dialog.title = title;
+        if(text)
+            dialog.text = text;
+       dialog.open();
     }
 
     header: ToolBar {
@@ -129,5 +139,9 @@ ApplicationWindow {
                 from: 1; to: 0; duration: 450
             }
         }
+    }
+
+    MessageDialog {
+        id: dialog
     }
 }

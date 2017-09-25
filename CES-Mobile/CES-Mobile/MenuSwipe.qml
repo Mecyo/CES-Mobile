@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 
-import "./AwesomeIcon/" as AwesomeIcon
+import "AwesomeIcon/"
 
 Page {
     anchors.fill: parent
@@ -46,16 +46,18 @@ Page {
             TabButton {
                 height: 35
                 Rectangle {anchors.fill: parent; color: "transparent"}
+                AwesomeIcon {
+                    id: nameIcon
+                    size: 30
+                    name: iconName
+                    color: "#333"
+                    clickEnabled: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
 
                 ColumnLayout {
                     spacing: 0; height: parent.height
                     anchors.centerIn: parent
-
-                    Text {
-                        text: name
-                        font.pixelSize: 10
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
                 }
             }
         }
@@ -63,10 +65,10 @@ Page {
 
     ListModel {
         id: listModel
-        ListElement { name: "Home"}
-        ListElement { name: "Retirar"}
-        ListElement { name: "Reservar"}
-        ListElement { name: "Transferência"}
-        ListElement { name: "Histórico"}
+        ListElement { name: "Home"; iconName: "home"}
+        ListElement { name: "Retirar"; iconName: "share"}
+        ListElement { name: "Reservar"; iconName: "tag"}
+        ListElement { name: "Transferência"; iconName: "exchange"}
+        ListElement { name: "Histórico"; iconName: "history"}
     }
 }
