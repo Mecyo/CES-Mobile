@@ -65,7 +65,6 @@ Page {
     ListView {
         id: listView1
         anchors.top: rectangleTop.bottom
-        //anchors.bottom: buttons.top
         height: parent.height - rectangleTop.height
         width: parent.width
         model: listModel1
@@ -91,7 +90,7 @@ Page {
                         color: "black"
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
-                        //onClicked: pushPage("qrc:/Page4.qml", {"objetoNome": texto});
+                        //onClicked: pushPage("qrc:/TransferirObjeto.qml", {"objetoNome": texto});
                     }
                 }
             }
