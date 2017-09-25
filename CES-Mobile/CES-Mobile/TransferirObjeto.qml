@@ -7,8 +7,9 @@ import "./AwesomeIcon/" as AwesomeIcon
 
 Page {
     id: page
-    title: "Transferência - (Objeto(s) em sua posse)"
-    objectName: "Transferência"
+    title: "Transferir Objeto" + " - " + "(" + objetoNome +")"
+    objectName: "page4"
+    property string objetoNome: ""
 
     Rectangle {
         id: rectangleTop
@@ -90,7 +91,6 @@ Page {
                         color: "black"
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
-                        onClicked: pushPage("qrc:/TransferirObjeto.qml", {"objetoNome": texto});
                     }
                 }
             }
@@ -99,9 +99,9 @@ Page {
 
     ListModel {
         id: listModel1
-        ListElement { texto: "Chave1"}
-        ListElement { texto: "Chave2"}
-        ListElement { texto: "Chave3"}
-        ListElement { texto: "Chave4"}
+        ListElement { texto: "Renato"}
+        ListElement { texto: "Emanuel"}
+        ListElement { texto: "Brunno"}
+        ListElement { texto: "Thiago"}
     }
 }
