@@ -12,5 +12,6 @@
         <file>Historico.qml</file>
         <file>Reservar.qml</file>
         <file>Transferencia.qml</file>
+        <file>TransferirObjeto.qml</file>
     </qresource>
 </RCC>

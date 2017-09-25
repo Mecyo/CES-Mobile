@@ -67,7 +67,8 @@ ApplicationWindow {
             anchors.fill: parent
 
             AwesomeIcon.AwesomeIcon {
-                name: isSwipeView ? "" :"arrow_left"
+                name: "arrow_left"
+                visible: !isSwipeView
                 color: "black"
                 size: 22
                 onClicked: popPage()
@@ -75,18 +76,19 @@ ApplicationWindow {
 
             Column {
                 Label {
-                    text: "CES"
+                    text: isSwipeView ? "CES" : ""
                     font.pixelSize: 20
                     font.bold: true
                 }
                 Label {
-                    text: "Sistema de Controle de Entrada e Saída de Objetos"
+                    text: isSwipeView ? "Sistema de Controle de Entrada e Saída de Objetos" : ""
                     font.pixelSize: 9
                 }
             }
 
             RowLayout {
                 anchors.top: parent.top
+                anchors.right: parent.right
                 spacing: 5
                 Label {
                     text: "Olá, Session[usuario]"
