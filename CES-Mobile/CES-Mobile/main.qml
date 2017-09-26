@@ -8,7 +8,7 @@ import "./AwesomeIcon/" as AwesomeIcon
 ApplicationWindow {
     id: windowApp
     visible: true
-    width: 400
+    width: 680
     height: 480
     title: menuSwipe.swipeChildCurrentItem.title
 
