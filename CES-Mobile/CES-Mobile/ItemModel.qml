@@ -1,4 +1,4 @@
-import QtQuick 2.9
+import QtQuick 2.8
 
 import "AwesomeIcon/"
 
@@ -9,7 +9,8 @@ Item {
     }
 
     function listarRetirados(user) {
-        return listaRetirados;
+        if(user)
+            return listaRetirados;
     }
 
     ListModel {
@@ -20,7 +21,7 @@ Item {
             iconName: "key"
         }
 
-        /*ListElement {
+        ListElement {
             nome: "Chave"
             dataRetirada: "14/09/2017"
             iconName: "key"
@@ -30,7 +31,7 @@ Item {
             nome: "Multimídia"
             dataRetirada: "16/09/2017"
             iconName: "print"
-        }*/
+        }
 
     }
 

@@ -1,6 +1,6 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import QtQuick.Window 2.3
+import QtQuick 2.8
+import QtQuick.Controls 2.1
+import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.3
@@ -18,7 +18,6 @@ Page {
         color: "#008fb3";
 
         Column {
-            id: column
             x: 16
             y: 16
             height: 16
@@ -37,37 +36,39 @@ Page {
                     id: txtPesquisa;
                     width: 100
                     height: 24
+                    text: "AAHGDFD"
                     anchors.verticalCenter: parent.verticalCenter
                     placeholderText: "Pesquisar..."
                     padding: 0
-                    bottomPadding: 8
+                    bottomPadding: 0
                     leftPadding: 18
-                    topPadding: 8
+                    topPadding: 13
                     font.pointSize: 11
                     horizontalAlignment: Text.AlignLeft
-                    background: Rectangle {
-                        color: "#FFF";
-                                    radius: 10
-                                    implicitWidth: 100;
-                                    border.color: "#333"
-                                    border.width: 1
-                                    AwesomeIcon {
-                                        id: iconSearch
-                                        size: 11
-                                        color: "#333"
-                                        name: "search"; y: 0; width: 18; height: 24; clickEnabled: true
-                                        anchors{left: parent.left; centerIn: parent.Center}
-                                        onClicked: {
-                                            if(comboPesquisa.currentText == "Selecione" && txtPesquisa.text) {
-                                                dialog.setText("Pesquisando por: " + txtPesquisa.text);
-                                                dialog.open();
-                                            } else {
-                                                dialog.setText("Pesquisando por: " + comboPesquisa.currentText);
-                                                dialog.open();
-                                            }
-                                        }
+                    background:
+                        Rectangle {
+                            color: "#FFF";
+                            radius: 10
+                            implicitWidth: 100;
+                            border.color: "#333"
+                            border.width: 1
+                            AwesomeIcon {
+                                id: iconSearch
+                                size: 11
+                                color: "#333"
+                                name: "search"; y: 0; width: 18; height: 24; clickEnabled: true
+                                anchors{left: parent.left; centerIn: parent.Center}
+                                onClicked: {
+                                    if(comboPesquisa.currentText == "Selecione" && txtPesquisa.text) {
+                                        dialog.setText("Pesquisando por: " + txtPesquisa.text);
+                                        dialog.open();
+                                    } else {
+                                        dialog.setText("Pesquisando por: " + comboPesquisa.currentText);
+                                        dialog.open();
                                     }
-                               }
+                                }
+                            }
+                       }
                 }
 
             }

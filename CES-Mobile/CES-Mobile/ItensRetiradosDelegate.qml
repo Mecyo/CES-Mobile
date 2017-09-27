@@ -1,9 +1,65 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick 2.8
+import QtQuick.Controls 2.1
 
 import "AwesomeIcon/"
 
 Component {
+
+    /*Rectangle {
+    width: page.width; height: 55; implicitHeight: height
+    border.color: "black"
+    anchors.horizontalCenter: parent.horizontalCenter
+    Row {
+        id: rowListView
+        height: 45
+        width: page.width
+        spacing: 5
+        Item{width: 10; height: 45}
+        Label {
+            text: item
+            width: page.width * 0.20
+            height: 45
+            elide: Text.ElideRight
+            font.pixelSize: 13
+            maximumLineCount: 1
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WrapAnywhere
+        }
+        Label {
+            text: desc
+            width: page.width * 0.50
+            height: 45
+            elide: Text.ElideRight
+            maximumLineCount: 3
+            wrapMode: Text.WrapAnywhere
+            verticalAlignment: Text.AlignVCenter
+        }
+        Label {
+            text: qtd
+            width: page.width * 0.05
+            height: 45
+            elide: Text.ElideRight
+            maximumLineCount: 1
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.WrapAnywhere
+        }
+        AwesomeIcon {
+            width: page.width * 0.05
+            name: devolucao
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Label {
+            text: pedido
+            width: page.width * 0.15
+            height: 45
+            elide: Text.ElideRight
+            maximumLineCount: 1
+            wrapMode: Text.WrapAnywhere
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+}*/
+
     Item {
         Rectangle {
             id: delCol1
