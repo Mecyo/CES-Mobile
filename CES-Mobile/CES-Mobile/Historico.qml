@@ -1,11 +1,8 @@
 import QtQuick 2.8
-import QtQuick.Window 2.3
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.2
-import QtQuick.Dialogs 1.2
-//import QtQuick.Controls.Material 2.1
+import QtQuick.Controls 2.1
+import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
-import SortFilterProxyModel 0.1
+
 import "AwesomeIcon/"
 
 
@@ -29,29 +26,44 @@ Page {
             width: parent.width - 10
             anchors.horizontalCenter: parent.horizontalCenter
 
-            AwesomeIcon {
-                name: "search"
-                color: "black"
-                onClicked: rectTextField.visible = !rectTextField.visible
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-            }
-            Rectangle {
+            TextField {
                 id: rectTextField
-                visible: false
-                height: textField.height
-                width: textField.width
-                radius: 100
+                width: 100
+                height: 24
                 anchors.verticalCenter: parent.verticalCenter
-                TextField {
-                    id: textField
-                    anchors.fill: parent
-                    placeholderText: "Usuário"
+                placeholderText: "Pesquisar..."
+                padding: 0
+                bottomPadding: 8
+                leftPadding: 18
+                topPadding: 8
+                font.pointSize: 11
+                horizontalAlignment: Text.AlignLeft
+                background: Rectangle {
+                    color: "#FFF";
+                    radius: 10
+                    implicitWidth: 100;
+                    border.color: "#333"
+                    border.width: 1
+                    AwesomeIcon {
+                        id: iconSearch
+                        size: 11
+                        color: "#333"
+                        name: "search"; y: 0; width: 18; height: 24; clickEnabled: true
+                        anchors{left: parent.left; verticalCenter: parent.verticalCenter}
+                        onClicked: {
+                            if(comboPesquisa.currentText == "Selecione" && txtPesquisa.text) {
+                                dialog.setText("Pesquisando por: " + txtPesquisa.text);
+                                dialog.open();
+                            } else {
+                                dialog.setText("Pesquisando por: " + comboPesquisa.currentText);
+                                dialog.open();
+                            }
+                        }
+                    }
                 }
             }
 
             Label {
-                visible: !rectTextField.visible
                 anchors.centerIn: parent
                 text: title
             }
@@ -65,102 +77,72 @@ Page {
         }
     }
 
-    TableView {
-        id: tableView
-
-        frameVisible: false
-        sortIndicatorVisible: true
-
+    ListView {
+        id: listView1
         anchors.top: rectangleTop.bottom
         height: parent.height - rectangleTop.height
         width: parent.width
-
-        model: SortFilterProxyModel {
-            id: proxyModel
-            source: listModel1.count > 0 ? listModel1 : null
-
-            sortOrder: tableView.sortIndicatorOrder
-            sortCaseSensitivity: Qt.CaseInsensitive
-            sortRole: listModel1.count > 0 ? tableView.getColumn(tableView.sortIndicatorColumn).role : ""
-
-            filterString: "*" + searchBox.text + "*"
-            filterSyntax: SortFilterProxyModel.Wildcard
-            filterCaseSensitivity: Qt.CaseInsensitive
-        }
-
-        rowDelegate: Rectangle {
-           height: 30
-           SystemPalette {
-              id: myPalette;
-              colorGroup: SystemPalette.Active
-           }
-           color: {
-              var baseColor = styleData.alternate?myPalette.alternateBase:myPalette.base
-              return styleData.selected?myPalette.highlight:baseColor
-           }
-        }
-        TableViewColumn {
-            id: itemColumn
-            title: "Item"
-            role: "item"
-            movable: false
-            resizable: false
-            width: tableView.viewport.width - itemColumn.width
-        }
-
-        TableViewColumn {
-            id: descrColumn
-            title: "Descrição"
-            role: "descr"
-            movable: false
-            resizable: false
-            width: tableView.viewport.width / 5
-        }
-
-        TableViewColumn {
-            id: qtdColumn
-            title: "Quantidade"
-            role: "qtd"
-            movable: false
-            resizable: false
-            width: tableView.viewport.width / 5
-        }
-
-        TableViewColumn {
-            id: devolucaoColumn
-            title: "Devolvido"
-            role: "devolucao"
-            movable: false
-            resizable: false
-            width: tableView.viewport.width / 5
-        }
-
-        TableViewColumn {
-            id: dataColumn
-            title: "Data"
-            role: "dataPedido"
-            movable: false
-            resizable: false
-            width: tableView.viewport.width / 5
-        }
-
-        ListModel {
-            id: listModel1
-            ListElement {
-                item: "Chave";
-                descr: "Chave do LAB5";
-                qtd: "1";
-                devolucao: "Sim";
-                dataPedido: "26/09/2017"
+        model: listModel1
+        delegate:
+            Rectangle {
+            width: page.width; height: 55; implicitHeight: height
+            border.color: "black"
+            anchors.horizontalCenter: parent.horizontalCenter
+            Row {
+                id: rowListView
+                height: 45
+                width: page.width
+                spacing: 5
+                Item{width: 10; height: 45}
+                Label {
+                    text: item
+                    width: page.width * 0.20
+                    height: 45
+                    elide: Text.ElideRight
+                    font.pixelSize: 13
+                    maximumLineCount: 1
+                    verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.WrapAnywhere
+                }
+                Label {
+                    text: desc
+                    width: page.width * 0.50
+                    height: 45
+                    elide: Text.ElideRight
+                    maximumLineCount: 3
+                    wrapMode: Text.WrapAnywhere
+                    verticalAlignment: Text.AlignVCenter
+                }
+                Label {
+                    text: qtd
+                    width: page.width * 0.05
+                    height: 45
+                    elide: Text.ElideRight
+                    maximumLineCount: 1
+                    verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.WrapAnywhere
+                }
+                AwesomeIcon {
+                    width: page.width * 0.05
+                    name: devolucao
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                Label {
+                    text: pedido
+                    width: page.width * 0.15
+                    height: 45
+                    elide: Text.ElideRight
+                    maximumLineCount: 1
+                    wrapMode: Text.WrapAnywhere
+                    verticalAlignment: Text.AlignVCenter
+                }
             }
-            ListElement {
-                item: "Projetor";
-                descr: "AudioVisual";
-                qtd: "7";
-                devolucao: "Não";
-                dataPedido: "26/09/2017"
-            }
-
         }
+    }
+
+    ListModel {
+        id: listModel1
+        ListElement { item: "Chave1"; desc: "Chave do lab 5"; qtd: "1"; devolucao: "check_square" ;pedido:"27/09/2017"}
+        ListElement { item: "Retroprojetor1"; desc: "Chaves dos labs 1 a 4 "; qtd: "4"; devolucao: "check_square" ;pedido:"27/09/2017"}
     }
 }
