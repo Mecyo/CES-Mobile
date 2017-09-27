@@ -2,8 +2,7 @@ QT += qml quick
 
 CONFIG += c++11
 
-SOURCES += main.cpp \
-    sortfilterproxymodel.cpp
+SOURCES += main.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,5 +30,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES +=
 
-HEADERS += \
-    sortfilterproxymodel.h
+HEADERS +=

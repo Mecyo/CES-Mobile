@@ -3,7 +3,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
-import "./AwesomeIcon/" as AwesomeIcon
+import "./AwesomeIcon/"
 
 Page {
     id: page
@@ -26,34 +26,49 @@ Page {
             width: parent.width - 10
             anchors.horizontalCenter: parent.horizontalCenter
 
-            AwesomeIcon.AwesomeIcon {
-                name: "search"
-                color: "black"
-                onClicked: rectTextField.visible = !rectTextField.visible
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-            }
-            Rectangle {
+            TextField {
                 id: rectTextField
-                visible: false
-                height: textField.height
-                width: textField.width
-                radius: 100
+                width: 100
+                height: 24
                 anchors.verticalCenter: parent.verticalCenter
-                TextField {
-                    id: textField
-                    anchors.fill: parent
-                    placeholderText: "Usuário"
+                placeholderText: "Pesquisar..."
+                padding: 0
+                bottomPadding: 8
+                leftPadding: 18
+                topPadding: 8
+                font.pointSize: 11
+                horizontalAlignment: Text.AlignLeft
+                background: Rectangle {
+                    color: "#FFF";
+                    radius: 10
+                    implicitWidth: 100;
+                    border.color: "#333"
+                    border.width: 1
+                    AwesomeIcon {
+                        id: iconSearch
+                        size: 11
+                        color: "#333"
+                        name: "search"; y: 0; width: 18; height: 24; clickEnabled: true
+                        anchors{left: parent.left; verticalCenter: parent.verticalCenter}
+                        onClicked: {
+                            if(comboPesquisa.currentText == "Selecione" && txtPesquisa.text) {
+                                dialog.setText("Pesquisando por: " + txtPesquisa.text);
+                                dialog.open();
+                            } else {
+                                dialog.setText("Pesquisando por: " + comboPesquisa.currentText);
+                                dialog.open();
+                            }
+                        }
+                    }
                 }
             }
 
             Label {
-                visible: !rectTextField.visible
                 anchors.centerIn: parent
                 text: title
             }
 
-            AwesomeIcon.AwesomeIcon {
+            AwesomeIcon {
                 name: "pencil"
                 color: "black"
                 anchors.right: parent.right
@@ -85,7 +100,7 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                     }
 
-                    AwesomeIcon.AwesomeIcon {
+                    AwesomeIcon {
                         name: "exchange"
                         color: "black"
                         anchors.right: parent.right

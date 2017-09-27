@@ -15,7 +15,7 @@ Page {
         id: quadpesq;
         width: parent.width;
         height: 48
-        color: "#2196F3";
+        color: "#008fb3";
 
         Column {
             id: column
