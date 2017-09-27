@@ -1,4 +1,4 @@
-import QtQuick 2.8
+import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.3
 import QtQuick.Controls.Styles 1.4
@@ -119,21 +119,89 @@ Page {
         }
     }
 
+   Label{
+       id:lblComVc;
+       text: "Objetos com Você: "
+       anchors.top: quadpesq.bottom
+   }
+
+   Item {
+       id: headerList
+       anchors.top: lblComVc.bottom;
+       Rectangle {
+           id: col1
+           width: page.width / 4
+           height: 20
+           border.color: "#000"
+           border.width: 1
+           color: "#CCC"
+           Label {text: '<b>Nome</b>' ; anchors.horizontalCenter: parent.horizontalCenter;anchors.verticalCenter: parent.verticalCenter}
+
+       }
+       Rectangle {
+           id: col2
+           width: page.width / 4
+           anchors.top: lblComVc.bottom;
+           anchors.left: col1.right
+           height: 20
+           border.color: "#000"
+           border.width: 1
+           color: "#CCC"
+           Label { text: '<b>Retirada</b>' ; anchors.horizontalCenter: parent.horizontalCenter;anchors.verticalCenter: parent.verticalCenter}
+
+       }
+       Rectangle {
+           id: col3
+           width: page.width / 4
+           anchors.top: lblComVc.bottom;
+           anchors.left: col2.right
+           height: 20
+           border.color: "#000"
+           border.width: 1
+           color: "#CCC"
+           Label { text: '<b>Devolver</b>' ; anchors.horizontalCenter: parent.horizontalCenter;anchors.verticalCenter: parent.verticalCenter}
+
+       }
+       Rectangle {
+           id: col4
+           width: page.width / 4
+           anchors.top: lblComVc.bottom;
+           anchors.left: col3.right
+           height: 20
+           border.color: "#000"
+           border.width: 1
+           color: "#CCC"
+           Label { text: '<b>Transferir</b>' ; anchors.horizontalCenter: parent.horizontalCenter;anchors.verticalCenter: parent.verticalCenter}
+
+       }
+   }
+
    Rectangle {
         id: rectComVoce
         width: parent.width;
-        height: parent.height;
+        height: 480
         color: "#C9F1FD";
-        anchors.top: quadpesq.bottom;
-        Label{
-            id:lblComVc;
-            text: "Objetos com Você: "
-        }
-
+        anchors.top: headerList.bottom
+        anchors.topMargin: 20
 
         ListView {
-            anchors.top: lblComVc.bottom;
-            header: Rectangle {
+
+            //header:
+            model: modelRetirados.listarRetirados("userName")
+            delegate: retiradosDelegate
+            focus: true
+        }
+
+        ItemModel{id: modelRetirados}
+        ItensRetiradosDelegate{id: retiradosDelegate}
+
+
+
+
+        /*ListView {
+            width: rectComVoce.width
+
+            /*header: Rectangle {
                 id: headerListComVoce
                 color: "#ff5500"
 
@@ -167,8 +235,84 @@ Page {
                     anchors{left: columDevolver.right; margins: 10}
                     Text { text: '<b>Transferir</b>'}
                 }
+            }*/
+           /* model: retiradosModel;
+            delegate: Component {
+                Rectangle {
+                    //anchors.top: headerListComVoce.bottom;
+                    width: page.width
+                    height: 45
+                    border.color: "black"
+                    RowLayout {
+                        id: rowListView
+                        height: parent.height
+                        width: parent.width
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        /*Column {
+                            id: columnGridNome
+                            height: 15
+                            width: page.width / 4
+                            anchors{margins: 10}*/
+                            /*Label {
+                                id: lblNome
+                                text: nome
+                                anchors.left: parent.left
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        //}
+
+                        /*Column {
+                            id: columnGridRetirada
+                            height: 15
+                            width: page.width / 4
+                            anchors{left: columnGridNome.right; margins: 10}*/
+                            /*Label {
+                                id: lblRetirada
+                                text: dataRetirada
+                                anchors.left: lblNome.right
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        //}
+
+                        /*Column {
+                            id: columnGridDevolver
+                            height: 15
+                            width: page.width / 4
+                            anchors{left: columnGridRetirada.right; margins: 10}
+                            AwesomeIcon {
+                                id: iconTransferir
+                                name: "reply";
+                                color: "#333"
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+                                onClicked: {
+                                    dialog.setText("Devolvendo ítem: " + nome);
+                                    dialog.open();
+                                }
+                            }
+                        }
+
+                        Column {
+                            id: columnGridTransferir
+                            height: 15
+                            width: page.width / 4
+                            anchors{right: page.right; margins: 10}
+                            AwesomeIcon {
+                                name: "retweet";
+                                color: "#333"
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+                                onClicked: {
+                                    dialog.setText("Transferindo ítem: " + nome);
+                                    dialog.open();
+                                }
+                            }
+                        }*/
+                    /*}
+                }
             }
-        }
+        }*/
    }
 
 /*ListView {
@@ -261,87 +405,7 @@ Page {
        }
    }
 
-   ListModel {
-       id: retiradosModel
-       ListElement {
-           name: "Chave"
-           dataRetirada: "13/09/2017"
-           devolver: AwesomeIcon {
-               size: parent.height / 2
-               color: "#333"
-               anchors.leftMargin: -22
-               name: "reply"; y: 0; width: 27; height: 43; clickEnabled: true
-               anchors{left: parent.left; centerIn: parent.Center}
-               onClicked: {
-                   dialog.setText("Devolvendo ítem: " + parent.name);
-                   dialog.open();
-               }
-          }
-           transferir: AwesomeIcon {
-               size: parent.height / 2
-               color: "#333"
-               anchors.leftMargin: -22
-               name: "retweet"; y: 0; width: 27; height: 43; clickEnabled: true
-               anchors{left: parent.left; centerIn: parent.Center}
-               onClicked: {
-                   dialog.setText("Transferindo ítem: " + parent.name);
-                   dialog.open();
-               }
-          }
-       }
-       ListElement {
-           name: "Chave"
-           dataRetirada: "14/09/2017"
-           devolver: AwesomeIcon {
-               size: parent.height / 2
-               color: "#333"
-               anchors.leftMargin: -22
-               name: "reply"; y: 0; width: 27; height: 43; clickEnabled: true
-               anchors{left: parent.left; centerIn: parent.Center}
-               onClicked: {
-                   dialog.setText("Devolvendo ítem: " + parent.name);
-                   dialog.open();
-               }
-          }
-           transferir: AwesomeIcon {
-               size: parent.height / 2
-               color: "#333"
-               anchors.leftMargin: -22
-               name: "retweet"; y: 0; width: 27; height: 43; clickEnabled: true
-               anchors{left: parent.left; centerIn: parent.Center}
-               onClicked: {
-                   dialog.setText("Transferindo ítem: " + parent.name);
-                   dialog.open();
-               }
-          }
-       }
-       ListElement {
-           name: "Multimídia"
-           dataRetirada: "16/09/2017"
-           devolver: AwesomeIcon {
-               size: parent.height / 2
-               color: "#333"
-               anchors.leftMargin: -22
-               name: "reply"; y: 0; width: 27; height: 43; clickEnabled: true
-               anchors{left: parent.left; centerIn: parent.Center}
-               onClicked: {
-                   dialog.setText("Devolvendo ítem: " + parent.name);
-                   dialog.open();
-               }
-          }
-           transferir: AwesomeIcon {
-               size: parent.height / 2
-               color: "#333"
-               anchors.leftMargin: -22
-               name: "retweet"; y: 0; width: 27; height: 43; clickEnabled: true
-               anchors{left: parent.left; centerIn: parent.Center}
-               onClicked: {
-                   dialog.setText("Transferindo ítem: " + parent.name);
-                   dialog.open();
-               }
-          }
-       }
-   }*/
+   */
 
 
 }

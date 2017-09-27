@@ -68,7 +68,7 @@ Page {
         anchors.top: rectangleTop.bottom
         height: parent.height - rectangleTop.height
         width: parent.width
-        model: listModel1
+        model: listModel1.listarRetirados("userName")
         delegate: Component {
             Rectangle {
                 width: page.width
@@ -81,7 +81,7 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     Label {
-                        text: texto
+                        text: nome
                         anchors.left: parent.left
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -97,11 +97,5 @@ Page {
         }
     }
 
-    ListModel {
-        id: listModel1
-        ListElement { texto: "Renato"}
-        ListElement { texto: "Emanuel"}
-        ListElement { texto: "Brunno"}
-        ListElement { texto: "Thiago"}
-    }
+    ItemModel { id: listModel1 }
 }

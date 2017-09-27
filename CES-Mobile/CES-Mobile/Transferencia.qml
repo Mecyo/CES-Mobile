@@ -1,6 +1,5 @@
 import QtQuick 2.8
 import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
 import "./AwesomeIcon/" as AwesomeIcon
@@ -67,7 +66,7 @@ Page {
         anchors.top: rectangleTop.bottom
         height: parent.height - rectangleTop.height
         width: parent.width
-        model: listModel1
+        model: listModel1.listarUsuarios()
         delegate: Component {
             Rectangle {
                 width: page.width
@@ -97,11 +96,5 @@ Page {
         }
     }
 
-    ListModel {
-        id: listModel1
-        ListElement { texto: "Chave1"}
-        ListElement { texto: "Chave2"}
-        ListElement { texto: "Chave3"}
-        ListElement { texto: "Chave4"}
-    }
+    ItemModel { id: listModel1 }
 }

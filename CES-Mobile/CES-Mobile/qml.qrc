@@ -13,5 +13,7 @@
         <file>Reservar.qml</file>
         <file>Transferencia.qml</file>
         <file>TransferirObjeto.qml</file>
+        <file>ItensRetiradosDelegate.qml</file>
+        <file>ItemModel.qml</file>
     </qresource>
 </RCC>
