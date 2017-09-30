@@ -1,0 +1,46 @@
+{
+    "forceClearCache": false,
+    "applicationName": "Emile",
+    "organizationName": "Emile - IFBA Campus Salvador",
+    "organizationDomain": "gsort.pos.engsisubiq.EmileMobile",
+    "applicationDescription": "Gerenciador acadêmico de notificações",
+    "usesTabBar": false,
+    "usesDrawer": true,
+    "usesMaterialTheme": true,
+    "restService": {
+        "userServiceName": "apirest",
+        "userServicePassword": "apirest",
+        "baseUrl2": "http://10.103.17.121:5000/api_rest/",
+        "baseUrl": "http://cesweb.pythonanywhere.com/api_rest/",
+        "baseImagesUrl": ""
+    },
+    "fontSize": {
+        "small": 10,
+        "normal": 12,
+        "large": 16,
+        "extraLarge": 24
+    },
+    "theme": {
+        "linkColor": "#2196f3",
+        "colorPrimary": "#2196f3",
+        "colorAccent": "#ffffff",
+        "colorControl": "#3b3b3b",
+        "colorControlHighlight": "#e1eef9",
+        "textColorPrimary": "#3b3b3b",
+        "menuBackgroundColor": "#2196f3",
+        "pageBackgroundColor": "#fafafa"
+    },
+    "events": {
+        "cancel": "1",
+        "goBack": "2",
+        "newPushMessage": "3",
+        "newIntentPushMessage": "4",
+        "openDrawer": "5",
+        "pushNotificationToken": "6",
+        "requestUpdateUserProfile": "7",
+        "saveUserProfile": "8",
+        "submitForm": "9",
+        "userProfileChanged": "10",
+        "cameraImageSaved": "11"
+    }
+}

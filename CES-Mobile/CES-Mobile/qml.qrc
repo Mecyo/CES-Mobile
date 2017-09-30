@@ -1,0 +1,31 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>BasePage.qml</file>
+        <file>CustomListView.qml</file>
+        <file>CustomTextField.qml</file>
+        <file>Datepicker.qml</file>
+        <file>default_user_image.svg</file>
+        <file>FilterDialog.qml</file>
+        <file>ListItem.qml</file>
+        <file>ListObjectsAvailable.qml</file>
+        <file>Main.qml</file>
+        <file>Menu.qml</file>
+        <file>PageActionMessage.qml</file>
+        <file>PageStack.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>RequestHttp.qml</file>
+        <file>RoundedImage.qml</file>
+        <file>Settings.json</file>
+        <file>ShowObjectDetails.qml</file>
+        <file>TimePicker.qml</file>
+        <file>Toast.qml</file>
+        <file>ToolBar.qml</file>
+        <file>ToolBarButton.qml</file>
+        <file>ToolBarSearch.qml</file>
+
+        <file>Awesome/Font.otf</file>
+        <file>Awesome/Icon.qml</file>
+        <file>Awesome/Map.js</file>
+    </qresource>
+</RCC>
