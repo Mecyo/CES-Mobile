@@ -1,5 +1,4 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
+<RCC>
     <qresource prefix="/">
         <file>BasePage.qml</file>
         <file>CustomListView.qml</file>
@@ -23,9 +22,10 @@
         <file>ToolBar.qml</file>
         <file>ToolBarButton.qml</file>
         <file>ToolBarSearch.qml</file>
-
         <file>Awesome/Font.otf</file>
         <file>Awesome/Icon.qml</file>
         <file>Awesome/Map.js</file>
+        <file>Historico.qml</file>
+        <file>HistoricObjectDetails.qml</file>
     </qresource>
 </RCC>

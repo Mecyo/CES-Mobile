@@ -34,6 +34,19 @@ ApplicationWindow {
         }
     ]
 
+    property var pagesHistorico: [
+        {
+           "absPath": "Historico.qml",
+           "title": "Histórico de Objetos",
+           "icon": "gears",
+           "roles": ["teacher"],
+           "order": 1,
+           "isHome": false,
+           "showInMenu": true,
+           "isLogin": false
+        }
+    ]
+
     // this signal can be used to pages make connections to some events
     // like push notification message|token, send by android QtActivity and iOS AppDelegate
     signal eventNotify(string eventName, var eventData)
