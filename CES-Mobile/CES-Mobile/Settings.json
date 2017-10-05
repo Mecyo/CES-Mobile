@@ -8,10 +8,10 @@
     "usesDrawer": true,
     "usesMaterialTheme": true,
     "restService": {
-        "userServiceName": "apirest",
-        "userServicePassword": "apirest",
+        "userServiceName": "",
+        "userServicePassword": "",
         "baseUrl2": "http://10.103.17.121:5000/api_rest/",
-        "baseUrl": "http://cesweb.pythonanywhere.com/api_rest/",
+        "baseUrl": "http://apirestces.pythonanywhere.com/api_rest/",
         "baseImagesUrl": ""
     },
     "fontSize": {

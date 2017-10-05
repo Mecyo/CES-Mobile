@@ -127,7 +127,7 @@ Rectangle {
             Icon {
                 id: primaryActionIcon
                 size: _primaryLabel.font.pointSize*1.4
-                color: _primaryLabel.color; clickEnabled: false
+                color: _primaryLabel.color; clickEnabled: true
                 width: name ? parent.width * 0.75 : 0; height: width; weight: showIconBold ? Font.Bold : Font.Light
                 anchors { verticalCenter: parent.verticalCenter; horizontalCenter: parent.horizontalCenter }
             }

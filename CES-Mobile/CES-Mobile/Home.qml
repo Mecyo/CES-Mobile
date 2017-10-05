@@ -2,24 +2,25 @@ import QtQuick 2.8
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
+
 BasePage {
+    //Trocar por id do usuário do Emile
     property int userId: 1
-    title: qsTr("Get a object")
-    objectName: "Historico.qml"
+
+    title: qsTr("CES - Sistema de Controle de Entrada e Saída de Objetos")
+    objectName: "Home.qml"
     listViewDelegate: pageDelegate
-    //onRequestUpdatePage: requestHttp.get("exibir_objetos/")
     onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    //onRequestHttpReady: requestHttp.get("exibir_objetos/")
     onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
 
     property var objects
 
     function showDetail(delegateIndex) {
-        pageStack.push("HistoricObjectDetails.qml", {"details":objects[delegateIndex]})
+        pageStack.push("ShowObjectDetails.qml", {"details":objects[delegateIndex]})
     }
 
     Datepicker {
@@ -40,15 +41,11 @@ BasePage {
         onFinished: {
             if (statusCode != 200)
                 return
-            objects = []
-            for (var i = 0; i < response.length; ++i) {
-                objects[i] = requestHttp.get("exibir_objeto/" + response[i].objeto_id.id)
-
+            objects = response
+            for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
-            }
         }
     }
-
 
     Component {
         id: pageDelegate
@@ -56,9 +53,9 @@ BasePage {
         ListItem {
             badgeText: index+1
             secondaryIconName: "gear"
-            badgeBackgroundColor: (index%1) ? "red" : "yellow"
+            badgeBackgroundColor: (index%2) ? "red" : "yellow"
             width: parent.width; height: 60
-            primaryLabelText: objeto_id.nome
+            primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
             onClicked: showDetail(index)
