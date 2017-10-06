@@ -30,5 +30,6 @@
         <file>ObjetoReservado.qml</file>
         <file>ReservarObjectDetails.qml</file>
         <file>ReservarObjeto.qml</file>
+        <file>ShowObjectDetails.qml</file>
     </qresource>
 </RCC>
