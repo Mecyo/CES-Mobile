@@ -31,16 +31,23 @@ ApplicationWindow {
            "isHome": false,
            "showInMenu": true,
            "isLogin": false
-        }
-    ]
-
-    property var pagesHistorico: [
+        },
+        {
+           "absPath": "Transference.qml",
+           "title": "Transferir Objeto",
+           "icon": "exchange",
+           "roles": ["teacher"],
+           "order": 2,
+           "isHome": false,
+           "showInMenu": true,
+           "isLogin": false
+        },
         {
            "absPath": "Historico.qml",
            "title": "Histórico de Objetos",
            "icon": "gears",
            "roles": ["teacher"],
-           "order": 1,
+           "order": 3,
            "isHome": false,
            "showInMenu": true,
            "isLogin": false
