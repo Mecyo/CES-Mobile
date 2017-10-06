@@ -6,7 +6,7 @@ ApplicationWindow {
     id: window
     visible: true
     width: 360; height: 580
-    title: qsTr("CES - Sistema de Controle de Entrada e Saída de Objetos")
+    title: qsTr("Hello World")
     x: 510; y: 75
     Component.onCompleted: pageStack.push(Qt.resolvedUrl("Home.qml"))
 
@@ -23,24 +23,41 @@ ApplicationWindow {
     }
     property var pages: [
         {
-           "absPath": "ListObjectsAvailable.qml",
-           "title": "Objetos disponíveis",
+           "absPath": "Home.qml",
+           "title": "Home",
            "icon": "gears",
            "roles": ["teacher"],
            "order": 1,
            "isHome": false,
            "showInMenu": true,
            "isLogin": false
-        }
-    ]
-
-    property var pagesHistorico: [
+        },
+        {
+           "absPath": "ListObjectsAvailable.qml",
+           "title": "Objetos disponíveis",
+           "icon": "gears",
+           "roles": ["teacher"],
+           "order": 2,
+           "isHome": false,
+           "showInMenu": true,
+           "isLogin": false
+        },
+        {
+           "absPath": "Transference.qml",
+           "title": "Transferir Objeto",
+           "icon": "exchange",
+           "roles": ["teacher"],
+           "order": 3,
+           "isHome": false,
+           "showInMenu": true,
+           "isLogin": false
+        },
         {
            "absPath": "Historico.qml",
            "title": "Histórico de Objetos",
            "icon": "gears",
            "roles": ["teacher"],
-           "order": 1,
+           "order": 4,
            "isHome": false,
            "showInMenu": true,
            "isLogin": false
@@ -61,42 +78,6 @@ ApplicationWindow {
         asynchronous: false
         source: "Menu.qml"
     }
-
-    /*This is to load the user logged to be used in all pages
-    Loader {
-        asynchronous: false
-        source: "Home.qml"
-        onLoaded: {
-
-            request('http://someurlgoeshere.com', function (o) {
-
-                    // log the json response
-                    console.log(o.responseText);
-
-                    // translate response into object
-                    var d = eval('new Object(' + o.responseText + ')');
-
-                    // access elements inside json object with dot notation
-                    emailLabel.text = d.email
-                    urlLabel.text = d.url
-                    sinceLabel.text = d.since
-                    bioLabel.text = d.bio
-
-                });
-        }
-    }
-
-    // this function is included locally, but you can also include separately via a header definition
-    function request(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = (function(myxhr) {
-            return function() {
-                callback(myxhr);
-            }
-        })(xhr);
-        xhr.open('GET', url, true);
-        xhr.send('');
-    }*/
 
     Toast {
         id: toast
