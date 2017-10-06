@@ -63,7 +63,7 @@ BasePage {
 
         ListItem {
             badgeText: index+1
-            secondaryIconName: "gear"
+            secondaryIconName: tipoObjeto_id.nome === "Chave" ? "key" : "video_camera"
             badgeBackgroundColor: (index%2) ? "red" : "yellow"
             width: parent.width; height: 60
             primaryLabelText: nome
