@@ -29,5 +29,8 @@
         <file>HistoricObjectDetails.qml</file>
         <file>Home.qml</file>
         <file>Transference.qml</file>
+        <file>ObjetoReservado.qml</file>
+        <file>ReservarObjectDetails.qml</file>
+        <file>ReservarObjeto.qml</file>
     </qresource>
 </RCC>

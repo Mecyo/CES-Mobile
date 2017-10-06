@@ -17,9 +17,6 @@ Drawer {
         var pagesLength = window.pages.length
         for (var i = 0; i < pagesLength; i++)
             listModel.append(window.pages[i])
-        var pagesHistoricoLength = window.pagesHistorico.length
-        for (var i = 0; i < pagesHistoricoLength; i++)
-            listModel.append(window.pagesHistorico[i])
     }
 
     Connections {

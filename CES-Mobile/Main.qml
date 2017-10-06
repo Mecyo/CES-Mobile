@@ -61,6 +61,16 @@ ApplicationWindow {
            "isHome": false,
            "showInMenu": true,
            "isLogin": false
+        },
+        {
+            "absPath": "ReservarObjeto.qml",
+            "title": "Reserva de Objetos",
+            "icon": "gears",
+            "roles": ["teacher"],
+            "order": 5,
+            "isHome": false,
+            "showInMenu": true,
+            "isLogin": false
         }
     ]
 
