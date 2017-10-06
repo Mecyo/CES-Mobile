@@ -2,13 +2,13 @@ QT += quick quickcontrols2 network svg
 
 CONFIG += c++11 debug
 
-SOURCES += main.cpp requesthttp.cpp
+SOURCES += CES-Mobile/main.cpp CES-Mobile/requesthttp.cpp
 
-HEADERS += requesthttp.h
+HEADERS += CES-Mobile/requesthttp.h
 
-RESOURCES += qml.qrc
+RESOURCES += CES-Mobile/qml.qrc
 
-OTHER_FILES += Settings.json
+OTHER_FILES += CES-Mobile/Settings.json
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
