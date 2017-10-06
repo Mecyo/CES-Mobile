@@ -6,8 +6,9 @@ import QtQuick.Controls 2.0
 BasePage {
     //Trocar por id do usuário do Emile
     property int userId: 1
+    property string userName: "Renato"
 
-    title: qsTr("CES - Sistema de Controle de Entrada e Saída de Objetos")
+    title: qsTr("Home")
     objectName: "Home.qml"
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
@@ -41,9 +42,19 @@ BasePage {
         onFinished: {
             if (statusCode != 200)
                 return
-            objects = response
-            for (var i = 0; i < response.length; ++i)
+            objects = []
+            for (var i = 0; i < response.length; ++i) {
+                objects[i] = response[i].objeto_id
+
                 listViewModel.append(objects[i])
+            }
+        }
+    }
+
+    Row {
+        Label {
+            id: labelUserName
+            text: "Objetos com você, " + userName
         }
     }
 

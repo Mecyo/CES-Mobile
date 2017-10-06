@@ -57,6 +57,7 @@ Rectangle {
     signal pressAndHold(var mouse)
     signal secondaryActionClicked(var mouse)
     signal secondaryActionPressAndHold(var mouse)
+    signal secondaryActionIconClicked(var mouse)
 
     MouseArea {
         id: listItemMouseArea
@@ -212,9 +213,10 @@ Rectangle {
             Icon {
                 id: secondaryActionIcon
                 color: _primaryLabel.color
-                width: parent.width * 0.75; height: width; clickEnabled: false
+                width: parent.width * 0.75; height: width; clickEnabled: true
                 visible: !secondaryActionImage.visible && name.length > 0; weight: showIconBold ? Font.Bold : Font.Light
                 anchors { verticalCenter: parent.verticalCenter; horizontalCenter: parent.horizontalCenter }
+                onClicked: secondaryActionIconClicked(mouse)
             }
 
             MouseArea {

@@ -8,13 +8,13 @@ BasePage {
     objectName: "Historico.qml"
     listViewDelegate: pageDelegate
     //onRequestUpdatePage: requestHttp.get("exibir_objetos/")
-    onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
+    onRequestUpdatePage: requestHttp.get("movimentacoes_usuario/" + userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
     //onRequestHttpReady: requestHttp.get("exibir_objetos/")
-    onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
+    onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + userId)
 
     property var objects
 
@@ -42,7 +42,7 @@ BasePage {
                 return
             objects = []
             for (var i = 0; i < response.length; ++i) {
-                objects[i] = requestHttp.get("exibir_objeto/" + response[i].objeto_id.id)
+                objects[i] = response[i].objeto_id
 
                 listViewModel.append(objects[i])
             }
@@ -58,7 +58,7 @@ BasePage {
             secondaryIconName: "gear"
             badgeBackgroundColor: (index%1) ? "red" : "yellow"
             width: parent.width; height: 60
-            primaryLabelText: objeto_id.nome
+            primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
             onClicked: showDetail(index)

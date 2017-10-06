@@ -3,20 +3,24 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    title: qsTr("Get a object")
+    title: qsTr("Objetos Disponíveis")
     objectName: "ListObjectsAvailable.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("exibir_objetos/")
+    onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("exibir_objetos/")
+    onRequestHttpReady: requestHttp.get("objetos_disponiveis/")
 
     property var objects
 
     function showDetail(delegateIndex) {
         pageStack.push("ShowObjectDetails.qml", {"details":objects[delegateIndex]})
+    }
+
+    function viewHome() {
+        pageStack.push("Home.qml")
     }
 
     Datepicker {
@@ -55,6 +59,7 @@ BasePage {
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
             onClicked: showDetail(index)
+            onSecondaryActionIconClicked: viewHome()
         }
     }
 }
