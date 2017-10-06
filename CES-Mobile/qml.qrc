@@ -7,7 +7,6 @@
         <file>default_user_image.svg</file>
         <file>FilterDialog.qml</file>
         <file>ListItem.qml</file>
-        <file>ListObjectsAvailable.qml</file>
         <file>Main.qml</file>
         <file>Menu.qml</file>
         <file>PageActionMessage.qml</file>
@@ -16,7 +15,6 @@
         <file>RequestHttp.qml</file>
         <file>RoundedImage.qml</file>
         <file>Settings.json</file>
-        <file>ShowObjectDetails.qml</file>
         <file>TimePicker.qml</file>
         <file>Toast.qml</file>
         <file>ToolBar.qml</file>

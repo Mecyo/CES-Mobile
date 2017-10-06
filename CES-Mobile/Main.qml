@@ -33,14 +33,14 @@ ApplicationWindow {
            "isLogin": false
         },
         {
-           "absPath": "ListObjectsAvailable.qml",
-           "title": "Objetos disponíveis",
-           "icon": "gears",
-           "roles": ["teacher"],
-           "order": 2,
-           "isHome": false,
-           "showInMenu": true,
-           "isLogin": false
+            "absPath": "ReservarObjeto.qml",
+            "title": "Reserva de Objetos",
+            "icon": "gears",
+            "roles": ["teacher"],
+            "order": 2,
+            "isHome": false,
+            "showInMenu": true,
+            "isLogin": false
         },
         {
            "absPath": "Transference.qml",
@@ -61,16 +61,6 @@ ApplicationWindow {
            "isHome": false,
            "showInMenu": true,
            "isLogin": false
-        },
-        {
-            "absPath": "ReservarObjeto.qml",
-            "title": "Reserva de Objetos",
-            "icon": "gears",
-            "roles": ["teacher"],
-            "order": 5,
-            "isHome": false,
-            "showInMenu": true,
-            "isLogin": false
         }
     ]
 

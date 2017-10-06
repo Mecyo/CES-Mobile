@@ -3,23 +3,24 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    property int userId: 1
-    title: qsTr("Get a object")
+    title: qsTr("Objetos Disponíveis")
     objectName: "ReservarObjeto.qml"
     listViewDelegate: pageDelegate
-    //onRequestUpdatePage: requestHttp.get("exibir_objetos/")
-    onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
+    onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    //onRequestHttpReady: requestHttp.get("exibir_objetos/")
-    onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
+    onRequestHttpReady: requestHttp.get("objetos_disponiveis/")
 
     property var objects
 
     function showDetail(delegateIndex) {
         pageStack.push("ReservarObjectDetails.qml", {"details":objects[delegateIndex]})
+    }
+
+    function viewHome() {
+        pageStack.push("Home.qml")
     }
 
     Datepicker {
@@ -40,15 +41,11 @@ BasePage {
         onFinished: {
             if (statusCode != 200)
                 return
-            objects = []
-            for (var i = 0; i < response.length; ++i) {
-                objects[i] = response[i].objeto_id
-
+            objects = response
+            for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
-            }
         }
     }
-
 
     Component {
         id: pageDelegate
@@ -56,12 +53,13 @@ BasePage {
         ListItem {
             badgeText: index+1
             secondaryIconName: "gear"
-            badgeBackgroundColor: (index%1) ? "red" : "yellow"
+            badgeBackgroundColor: (index%2) ? "red" : "yellow"
             width: parent.width; height: 60
             primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
             onClicked: showDetail(index)
+            onSecondaryActionIconClicked: viewHome()
         }
     }
 }
