@@ -9,12 +9,12 @@
     <Counters>
         <Counter>
             <Name>table</Name>
-            <Value>8</Value>
+            <Value>10</Value>
             <Prefix>t</Prefix>
         </Counter>
         <Counter>
             <Name>column</Name>
-            <Value>31</Value>
+            <Value>42</Value>
             <Prefix>c</Prefix>
         </Counter>
         <Counter>
@@ -24,7 +24,7 @@
         </Counter>
         <Counter>
             <Name>reference</Name>
-            <Value>14</Value>
+            <Value>20</Value>
             <Prefix>r</Prefix>
         </Counter>
         <Counter>
@@ -69,7 +69,7 @@
         </Counter>
         <Counter>
             <Name>tableDisplay</Name>
-            <Value>8</Value>
+            <Value>10</Value>
             <Prefix>td</Prefix>
         </Counter>
         <Counter>
@@ -79,7 +79,7 @@
         </Counter>
         <Counter>
             <Name>referenceDisplay</Name>
-            <Value>14</Value>
+            <Value>20</Value>
             <Prefix>rd</Prefix>
         </Counter>
     </Counters>
@@ -223,6 +223,20 @@
                     <Name>Usuario_id</Name>
                     <Type>integer</Type>
                     <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c37">
+                    <Name>status</Name>
+                    <Type>integer</Type>
+                    <Description>1 - Solicitado retirada (Atualiza data Retirada)
+2 - Emprestado (Atualiza data Retirada)
+3 - Solicitado Devolução
+4 - Devolvido (Atualiza data Devolução)
+5 - Solicitado Transferência
+6 - Transferência confirmada (Atualiza data Devolução)</Description>
                     <Nullable>false</Nullable>
                     <DefaultValue></DefaultValue>
                     <CheckExpression></CheckExpression>
@@ -501,6 +515,114 @@
             <AdditionalSQLAfter></AdditionalSQLAfter>
             <Properties/>
         </Table>
+        <Table Id="t9">
+            <Name>Reserva</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c33">
+                    <Name>id</Name>
+                    <Type>integer</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c32">
+                    <Name>Objeto_id</Name>
+                    <Type>integer</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c36">
+                    <Name>Usuario_id</Name>
+                    <Type>integer</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c34">
+                    <Name>dataReserva</Name>
+                    <Type>datetime</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c35">
+                    <Name>status</Name>
+                    <Type>integer</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <PrimaryKey>
+                <Name>id</Name>
+                <Columns>
+                    <Column>c33</Column>
+                </Columns>
+            </PrimaryKey>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Table>
+        <Table Id="t10">
+            <Name>Transferencia</Name>
+            <Description></Description>
+            <Columns>
+                <Column Id="c38">
+                    <Name>id</Name>
+                    <Type>integer</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c41">
+                    <Name>Movimentacao_id</Name>
+                    <Type>integer</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c42">
+                    <Name>Usuario_id</Name>
+                    <Type>integer</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+            </Columns>
+            <PrimaryKey>
+                <Name></Name>
+                <Columns>
+                    <Column>c38</Column>
+                </Columns>
+            </PrimaryKey>
+            <AlternateKeys/>
+            <Indexes/>
+            <TableChecks/>
+            <AdditionalSQLBefore></AdditionalSQLBefore>
+            <AdditionalSQLAfter></AdditionalSQLAfter>
+            <Properties/>
+        </Table>
     </Tables>
     <Views/>
     <References>
@@ -694,6 +816,82 @@
             <OnDeleteAction>None</OnDeleteAction>
             <Properties/>
         </Reference>
+        <Reference Id="r16">
+            <Name>Reserva_Objeto</Name>
+            <Description></Description>
+            <PKTable>t2</PKTable>
+            <FKTable>t9</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c3</PKColumn>
+                    <FKColumn>c32</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r17">
+            <Name>Reserva_Usuario</Name>
+            <Description></Description>
+            <PKTable>t4</PKTable>
+            <FKTable>t9</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c15</PKColumn>
+                    <FKColumn>c36</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r19">
+            <Name>Transferencia_Movimentacao</Name>
+            <Description></Description>
+            <PKTable>t3</PKTable>
+            <FKTable>t10</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c11</PKColumn>
+                    <FKColumn>c41</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
+        <Reference Id="r20">
+            <Name>Transferencia_Usuario</Name>
+            <Description></Description>
+            <PKTable>t4</PKTable>
+            <FKTable>t10</FKTable>
+            <PKRole></PKRole>
+            <FKRole></FKRole>
+            <ReferenceColumns>
+                <ReferenceColumn>
+                    <PKColumn>c15</PKColumn>
+                    <FKColumn>c42</FKColumn>
+                </ReferenceColumn>
+            </ReferenceColumns>
+            <Cardinality>0..*</Cardinality>
+            <Mandatory>true</Mandatory>
+            <OnUpdateAction>None</OnUpdateAction>
+            <OnDeleteAction>None</OnDeleteAction>
+            <Properties/>
+        </Reference>
     </References>
     <Sequences/>
     <Notes/>
@@ -724,15 +922,15 @@
             <X>7261.5</X>
             <Y>6968.5</Y>
             <Width>178.0</Width>
-            <Height>102.0</Height>
+            <Height>116.0</Height>
             <LineColor>#000000</LineColor>
             <FillColor>#ffffff</FillColor>
             <Table>t3</Table>
             <FixedSize>false</FixedSize>
         </TableDisplay>
         <TableDisplay Id="td4">
-            <X>7269.5</X>
-            <Y>7100.5</Y>
+            <X>7284.5</X>
+            <Y>7115.5</Y>
             <Width>193.0</Width>
             <Height>102.0</Height>
             <LineColor>#000000</LineColor>
@@ -778,6 +976,26 @@
             <LineColor>#000000</LineColor>
             <FillColor>#ffffff</FillColor>
             <Table>t8</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td9">
+            <X>7440.5</X>
+            <Y>6808.5</Y>
+            <Width>155.0</Width>
+            <Height>102.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t9</Table>
+            <FixedSize>false</FixedSize>
+        </TableDisplay>
+        <TableDisplay Id="td10">
+            <X>7531.5</X>
+            <Y>6994.5</Y>
+            <Width>171.0</Width>
+            <Height>87.0</Height>
+            <LineColor>#000000</LineColor>
+            <FillColor>#ffffff</FillColor>
+            <Table>t10</Table>
             <FixedSize>false</FixedSize>
         </TableDisplay>
     </TableDisplays>
@@ -838,12 +1056,12 @@
                     <Y>7168.5</Y>
                 </ControlPoint>
                 <ControlPoint>
-                    <X>7337.5</X>
+                    <X>7352.5</X>
                     <Y>7168.5</Y>
                 </ControlPoint>
                 <ControlPoint>
-                    <X>7337.5</X>
-                    <Y>7148.5</Y>
+                    <X>7352.5</X>
+                    <Y>7163.5</Y>
                 </ControlPoint>
             </ControlPoints>
             <PkTableDisplay>td5</PkTableDisplay>
@@ -855,12 +1073,12 @@
             <Type>Cross_3CP</Type>
             <ControlPoints>
                 <ControlPoint>
-                    <X>7390.5</X>
-                    <Y>7131.5</Y>
+                    <X>7405.5</X>
+                    <Y>7146.5</Y>
                 </ControlPoint>
                 <ControlPoint>
                     <X>7063.5</X>
-                    <Y>7131.5</Y>
+                    <Y>7146.5</Y>
                 </ControlPoint>
                 <ControlPoint>
                     <X>7063.5</X>
@@ -897,19 +1115,19 @@
             <Type>Vertical_4CP</Type>
             <ControlPoints>
                 <ControlPoint>
-                    <X>7309.5</X>
-                    <Y>7110.5</Y>
+                    <X>7324.5</X>
+                    <Y>7125.5</Y>
                 </ControlPoint>
                 <ControlPoint>
-                    <X>7309.5</X>
+                    <X>7324.5</X>
                     <Y>7028.5</Y>
                 </ControlPoint>
                 <ControlPoint>
-                    <X>7265.5</X>
+                    <X>7271.5</X>
                     <Y>7028.5</Y>
                 </ControlPoint>
                 <ControlPoint>
-                    <X>7265.5</X>
+                    <X>7271.5</X>
                     <Y>7040.5</Y>
                 </ControlPoint>
             </ControlPoints>
@@ -972,11 +1190,11 @@
             <Type>Cross_3CP</Type>
             <ControlPoints>
                 <ControlPoint>
-                    <X>7327.5</X>
-                    <Y>7161.5</Y>
+                    <X>7342.5</X>
+                    <Y>7176.5</Y>
                 </ControlPoint>
                 <ControlPoint>
-                    <X>7327.5</X>
+                    <X>7342.5</X>
                     <Y>7261.5</Y>
                 </ControlPoint>
                 <ControlPoint>
@@ -1008,6 +1226,94 @@
             <PkTableDisplay>td1</PkTableDisplay>
             <FkTableDisplay>td8</FkTableDisplay>
             <Reference>r14</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd16">
+            <Color>#000000</Color>
+            <Type>Horizontal_4CP</Type>
+            <ControlPoints>
+                <ControlPoint>
+                    <X>7281.5</X>
+                    <Y>6909.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7379.5</X>
+                    <Y>6909.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7379.5</X>
+                    <Y>6852.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7476.5</X>
+                    <Y>6852.5</Y>
+                </ControlPoint>
+            </ControlPoints>
+            <PkTableDisplay>td2</PkTableDisplay>
+            <FkTableDisplay>td9</FkTableDisplay>
+            <Reference>r16</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd17">
+            <Color>#000000</Color>
+            <Type>Vertical_4CP</Type>
+            <ControlPoints>
+                <ControlPoint>
+                    <X>7467.5</X>
+                    <Y>7145.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7467.5</X>
+                    <Y>7153.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7515.5</X>
+                    <Y>7153.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7515.5</X>
+                    <Y>6852.5</Y>
+                </ControlPoint>
+            </ControlPoints>
+            <PkTableDisplay>td4</PkTableDisplay>
+            <FkTableDisplay>td9</FkTableDisplay>
+            <Reference>r17</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd19">
+            <Color>#000000</Color>
+            <Type>Horizontal_2CP</Type>
+            <ControlPoints>
+                <ControlPoint>
+                    <X>7384.5</X>
+                    <Y>7012.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7587.5</X>
+                    <Y>7012.5</Y>
+                </ControlPoint>
+            </ControlPoints>
+            <PkTableDisplay>td3</PkTableDisplay>
+            <FkTableDisplay>td10</FkTableDisplay>
+            <Reference>r19</Reference>
+        </ReferenceDisplay>
+        <ReferenceDisplay Id="rd20">
+            <Color>#000000</Color>
+            <Type>Cross_3CP</Type>
+            <ControlPoints>
+                <ControlPoint>
+                    <X>7467.5</X>
+                    <Y>7190.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7607.5</X>
+                    <Y>7190.5</Y>
+                </ControlPoint>
+                <ControlPoint>
+                    <X>7607.5</X>
+                    <Y>7071.5</Y>
+                </ControlPoint>
+            </ControlPoints>
+            <PkTableDisplay>td4</PkTableDisplay>
+            <FkTableDisplay>td10</FkTableDisplay>
+            <Reference>r20</Reference>
         </ReferenceDisplay>
     </ReferenceDisplays>
     <Properties>
