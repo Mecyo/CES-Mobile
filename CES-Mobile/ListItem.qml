@@ -36,7 +36,7 @@ Rectangle {
     property alias secondaryImageSource: secondaryActionImage.imgSource
     property alias secondaryActionIcon: secondaryActionIcon
 
-    property alias tertiaryIconName: primaryActionIcon.name
+    property alias tertiaryIconName: tertiaryActionIcon.name
     property alias tertiaryActionIcon: tertiaryActionIcon
 
     property bool selected: false
