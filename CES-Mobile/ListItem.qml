@@ -34,6 +34,10 @@ Rectangle {
     property alias secondaryIconName: secondaryActionIcon.name
     property alias secondaryIconColor: secondaryActionIcon.color
     property alias secondaryImageSource: secondaryActionImage.imgSource
+    property alias secondaryActionIcon: secondaryActionIcon
+
+    property alias tertiaryIconName: primaryActionIcon.name
+    property alias tertiaryActionIcon: tertiaryActionIcon
 
     property bool selected: false
     property bool interactive: true
@@ -57,7 +61,6 @@ Rectangle {
     signal pressAndHold(var mouse)
     signal secondaryActionClicked(var mouse)
     signal secondaryActionPressAndHold(var mouse)
-    signal secondaryActionIconClicked(var mouse)
 
     MouseArea {
         id: listItemMouseArea
@@ -135,12 +138,13 @@ Rectangle {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: listItem.clicked()
+                onClicked: listItem.clicked(mouse)
                 onPressAndHold: listItem.pressAndHold()
             }
         }
 
         Column {
+            id: columnCenter
             width: parent.width - (primaryAction.width + secondaryAction.width)
             height: parent.height
             anchors {
@@ -188,7 +192,7 @@ Rectangle {
 
         Item {
             id: secondaryAction
-            width: visible ? 40 : 0; height: parent.height; anchors.right: parent.right
+            width: visible ? 40 : 0; height: parent.height; anchors.right: tertiaryAction.left
             visible: (secondaryActionLoader.active || secondaryActionImage.visible || secondaryActionIcon.visible)
 
             Loader {
@@ -216,14 +220,46 @@ Rectangle {
                 width: parent.width * 0.75; height: width; clickEnabled: true
                 visible: !secondaryActionImage.visible && name.length > 0; weight: showIconBold ? Font.Bold : Font.Light
                 anchors { verticalCenter: parent.verticalCenter; horizontalCenter: parent.horizontalCenter }
-                onClicked: secondaryActionIconClicked(mouse)
             }
 
-            MouseArea {
+            /*MouseArea {
                 anchors.fill: parent
                 enabled: secondaryAction.visible
                 onClicked: secondaryActionClicked(mouse)
                 onPressAndHold: secondaryActionPressAndHold(mouse)
+            }*/
+        }
+
+        Item {
+            id: tertiaryAction
+            width: visible ? 40 : 0; height: parent.height; anchors.right: parent.right
+            visible: (tertiaryActionLoader.active || tertiaryActionImage.visible || tertiaryActionIcon.visible)
+
+            Loader {
+                id: tertiaryActionLoader
+                anchors.centerIn: parent
+                sourceComponent: badgeComponent
+                asynchronous: true
+                active: badgeText.length > 0 && badgeInRightSide && !tertiaryActionImage.visible && !tertiaryActionIcon.visible
+                onLoaded: {
+                    item.height = width
+                    item.parent = tertiaryAction
+                    item.width = tertiaryAction.width * 0.75
+                }
+            }
+
+            RoundedImage {
+                id: tertiaryActionImage
+                width: parent.width * 0.75; height: width
+                visible: imgSource.length > 0
+            }
+
+            Icon {
+                id: tertiaryActionIcon
+                color: _primaryLabel.color
+                width: parent.width * 0.75; height: width; clickEnabled: true
+                visible: !tertiaryActionImage.visible && name.length > 0; weight: showIconBold ? Font.Bold : Font.Light
+                anchors { verticalCenter: parent.verticalCenter; horizontalCenter: parent.horizontalCenter }
             }
         }
     }

@@ -19,7 +19,7 @@ BasePage {
 
     Datepicker {
         id: _datepicker
-        onDateSelected: bookDate.text = "%1/%2/%3".arg(date.day).arg(date.month).arg(date.year)
+        onDateSelected: bookDate.text = Qt.formatDateTime(date, "dd/MM/yyyy")
     }
 
     Connections {
@@ -79,7 +79,7 @@ BasePage {
                 TextField {
                     id: bookDate
                     readOnly: true
-                    text: "%1/%2/%3".arg(currentDate.getDay()).arg(currentDate.getMonth()).arg(currentDate.getFullYear())
+                    text: Qt.formatDateTime(currentDate, "dd/MM/yyyy")//"%1/%2/%3".arg(currentDate.getDay()).arg(currentDate.getMonth()).arg(currentDate.getFullYear())
                     width: (parent.width + _dateText.implicitWidth)/2
                     placeholderText: qsTr("Aperte para selecionar uma data")
                     anchors.verticalCenter: parent.verticalCenter

@@ -32,7 +32,7 @@ Popup {
     Connections {
         target: datepicker
         onDateSelected: {
-            var dateText = "%1/%2/%3".arg(date.day).arg(date.month).arg(date.year)
+            var dateText = "%1Teste/%2/%3".arg(date.day).arg(date.month).arg(date.year)
             if (currentField == 1)
                 startDateField.text = dateText
             else if (currentField == 2)
