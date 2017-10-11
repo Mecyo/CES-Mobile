@@ -3,8 +3,8 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    title: qsTr("Objetos Disponíveis")
-    objectName: "ListObjectsAvailable.qml"
+    title: qsTr("RetirarItem")
+    objectName: "RetirarItem.qml"
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
     toolBarActions: {

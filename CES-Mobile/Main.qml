@@ -61,6 +61,16 @@ ApplicationWindow {
            "isHome": false,
            "showInMenu": true,
            "isLogin": false
+        },
+        {
+           "absPath": "RetirarItem.qml",
+           "title": "Retirada de itens",
+           "icon": "reply",
+           "roles": ["teacher"],
+           "order": 5,
+           "isHome": false,
+           "showInMenu": true,
+           "isLogin": false
         }
     ]
 
