@@ -59,7 +59,7 @@ BasePage {
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
             onClicked: showDetail(index)
-            onSecondaryActionIconClicked: viewHome()
+            secondaryActionIcon.onClicked: viewHome()
         }
     }
 }
