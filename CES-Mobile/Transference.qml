@@ -13,11 +13,14 @@ BasePage {
     }
     onRequestHttpReady: requestHttp.get("exibir_usuarios/")
 
-    property var objects
+    property var users
+    property var objeto
 
-//    function showDetail(delegateIndex) {
-//        pageStack.push("ShowObjectDetails.qml", {"details":objects[delegateIndex]})
-//    }
+    Component.onCompleted: console.log("Objeto: ", JSON.stringify(objeto))
+
+    function transferir(delegateIndex) {
+        //Implementar dialog de confirmação da transferência
+    }
 
     Datepicker {
         id: datepicker
@@ -38,9 +41,9 @@ BasePage {
             console.log("Número de itens ===  " + statusCode)
             if (statusCode != 200)
                 return
-            objects = response
+            users = response
             for (var i = 0; i < response.length; ++i)
-                listViewModel.append(objects[i])
+                listViewModel.append(users[i])
         }
     }
 
@@ -49,13 +52,13 @@ BasePage {
 
         ListItem {
             badgeText: index+1
-            secondaryIconName: "exchange"
+            secondaryIconName: "check"
             badgeBackgroundColor: (index%2) ? "red" : "yellow"
             width: parent.width; height: 60
             primaryLabelText: nome
             secondaryLabelText: email
             showSeparator: true
-            //onClicked: showDetail(index)
+            secondaryActionIcon.onClicked: transferir(index)
         }
     }
 }

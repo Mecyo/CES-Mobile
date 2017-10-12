@@ -3,8 +3,8 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    title: qsTr("Objetos Disponíveis")
-    objectName: "ReservarObjeto.qml"
+    title: qsTr("RetirarItem")
+    objectName: "RetirarItem.qml"
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
     toolBarActions: {
@@ -16,7 +16,7 @@ BasePage {
     property var objects
 
     function showDetail(delegateIndex) {
-        pageStack.push("ReservarObjectDetails.qml", {"details":objects[delegateIndex]})
+        pageStack.push("ShowObjectDetails.qml", {"details":objects[delegateIndex]})
     }
 
     function viewHome() {
@@ -52,14 +52,14 @@ BasePage {
 
         ListItem {
             badgeText: index+1
-            secondaryIconName: "gear"
+            secondaryIconName: "reply"
             badgeBackgroundColor: (index%2) ? "red" : "yellow"
             width: parent.width; height: 60
             primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
             onClicked: showDetail(index)
-            secondaryActionIcon.onClicked: viewHome()
+            onSecondaryActionIconClicked: viewHome()
         }
     }
 }

@@ -5,8 +5,8 @@ import QtQuick.Controls 2.0
 
 BasePage {
     //Trocar por id do usuário do Emile
-    property int userId: 1
-    property string userName: "Renato"
+    property int userId: 2
+    property string userName: "Emerson"
 
     title: qsTr("Home")
     objectName: "Home.qml"
@@ -19,9 +19,23 @@ BasePage {
     onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
 
     property var objects
+    property var selecionado
 
     function showDetail(delegateIndex) {
-        pageStack.push("ShowObjectDetails.qml", {"details":objects[delegateIndex]})
+        selecionado = objects[delegateIndex].objeto_id
+        pageStack.push("/ShowObjectDetails.qml", {"details":selecionado})
+    }
+
+    function devolver(delegateIndex) {
+        selecionado = objects[delegateIndex].objeto_id
+        console.log("Devolvendo o Objeto: ", JSON.stringify(selecionado))
+        pageStack.push("ShowObjectDetails.qml", {"details":selecionado})
+    }
+
+    function transferir(delegateIndex) {
+        selecionado = objects[delegateIndex].objeto_id
+        console.log("Transferindo o Objeto: ", JSON.stringify(selecionado))
+        pageStack.push("Transference.qml", {"objeto":selecionado})
     }
 
     Datepicker {
@@ -42,12 +56,9 @@ BasePage {
         onFinished: {
             if (statusCode != 200)
                 return
-            objects = []
-            for (var i = 0; i < response.length; ++i) {
-                objects[i] = response[i].objeto_id
-
+            objects = response
+            for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
-            }
         }
     }
 
@@ -62,12 +73,14 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            badgeText: index+1
-            secondaryIconName: tipoObjeto_id.nome === "Chave" ? "key" : "video_camera"
-            badgeBackgroundColor: (index%2) ? "red" : "yellow"
+            primaryIconName: objeto_id.tipoObjeto_id.icone
+            secondaryIconName:  "reply"
+            secondaryActionIcon.onClicked: devolver(index)
+            tertiaryIconName:  "exchange"
+            tertiaryActionIcon.onClicked: transferir(index)
             width: parent.width; height: 60
-            primaryLabelText: nome
-            secondaryLabelText: tipoObjeto_id.nome
+            primaryLabelText: objeto_id.nome
+            secondaryLabelText: Qt.formatDateTime(retirada, "dd/MM/yyyy")
             showSeparator: true
             onClicked: showDetail(index)
         }
