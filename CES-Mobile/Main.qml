@@ -43,21 +43,11 @@ ApplicationWindow {
             "isLogin": false
         },
         {
-           "absPath": "Transference.qml",
-           "title": "Transferir Objeto",
-           "icon": "exchange",
-           "roles": ["teacher"],
-           "order": 3,
-           "isHome": false,
-           "showInMenu": true,
-           "isLogin": false
-        },
-        {
            "absPath": "Historico.qml",
            "title": "Histórico de Objetos",
            "icon": "gears",
            "roles": ["teacher"],
-           "order": 4,
+           "order": 3,
            "isHome": false,
            "showInMenu": true,
            "isLogin": false
@@ -67,7 +57,7 @@ ApplicationWindow {
            "title": "Retirada de itens",
            "icon": "reply",
            "roles": ["teacher"],
-           "order": 5,
+           "order": 4,
            "isHome": false,
            "showInMenu": true,
            "isLogin": false

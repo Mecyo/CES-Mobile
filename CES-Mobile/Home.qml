@@ -8,7 +8,7 @@ BasePage {
     property int userId: 2
     property string userName: "Emerson"
 
-    title: qsTr("Home")
+    title: qsTr("Objetos com você")
     objectName: "Home.qml"
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
@@ -21,9 +21,8 @@ BasePage {
     property var objects
     property var selecionado
 
-    function showDetail(delegateIndex) {
-        selecionado = objects[delegateIndex].objeto_id
-        pageStack.push("/ShowObjectDetails.qml", {"details":selecionado})
+    function showDetail(status,nomeObjeto,dataRetirada) {
+        pageStack.push("DetalhesObjeto.qml", {"status": status, "nomeObjeto": nomeObjeto, "dataRetirada": dataRetirada})
     }
 
     function devolver(delegateIndex) {
@@ -32,10 +31,8 @@ BasePage {
         pageStack.push("ShowObjectDetails.qml", {"details":selecionado})
     }
 
-    function transferir(delegateIndex) {
-        selecionado = objects[delegateIndex].objeto_id
-        console.log("Transferindo o Objeto: ", JSON.stringify(selecionado))
-        pageStack.push("Transference.qml", {"objeto":selecionado})
+    function transferir(objeto_id, movimentacao_id) {
+        pageStack.push("Transference.qml", {"objetoId":objeto_id, "movimentacaoId":movimentacao_id})
     }
 
     Datepicker {
@@ -62,27 +59,20 @@ BasePage {
         }
     }
 
-    Row {
-        Label {
-            id: labelUserName
-            text: "Objetos com você, " + userName
-        }
-    }
-
     Component {
         id: pageDelegate
 
         ListItem {
-            primaryIconName: objeto_id.tipoObjeto_id.icone
+            //primaryIconName: objeto_id.tipoObjeto_id.icone
             secondaryIconName:  "reply"
             secondaryActionIcon.onClicked: devolver(index)
             tertiaryIconName:  "exchange"
-            tertiaryActionIcon.onClicked: transferir(index)
+            tertiaryActionIcon.onClicked: transferir(objeto_id.id, id)
             width: parent.width; height: 60
             primaryLabelText: objeto_id.nome
             secondaryLabelText: Qt.formatDateTime(retirada, "dd/MM/yyyy")
             showSeparator: true
-            onClicked: showDetail(index)
+            onClicked: showDetail(status,objeto_id.nome,retirada)
         }
     }
 }
