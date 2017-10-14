@@ -4,19 +4,15 @@ import QtQuick.Controls 2.0
 
 
 BasePage {
-    //Trocar por id do usuário do Emile
-    property int userId: 2
-    property string userName: "Emerson"
-
     title: qsTr("Objetos com você")
     objectName: "Home.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
+    onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + Settings.userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + userId)
+    onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + Settings.userId)
 
     property var objects
     property var selecionado
