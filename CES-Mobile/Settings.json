@@ -11,8 +11,8 @@
     "restService": {
         "userServiceName": "",
         "userServicePassword": "",
-        "baseUrl2": "http://127.0.0.1:8000/api_rest/",
-        "baseUrl": "http://apirestces.pythonanywhere.com/api_rest/",
+        "baseUrl": "http://127.0.0.1:8000/api_rest/",
+        "baseUrl2": "http://apirestces.pythonanywhere.com/api_rest/",
         "baseImagesUrl": ""
     },
     "fontSize": {

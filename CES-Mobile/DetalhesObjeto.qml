@@ -11,6 +11,7 @@ BasePage {
     property int status
     property string nomeObjeto
     property string dataRetirada
+    property var dados: ({"tipo": 2,"usuario_id": Settings.userId})
 
     function statusName() {
         switch(status) {
@@ -40,7 +41,7 @@ BasePage {
 
     Timer {
         id: popCountdow
-        interval: 3000; repeat: false
+        interval: 2000; repeat: false
         onTriggered: pageStack.pop()
     }
 
@@ -83,15 +84,15 @@ BasePage {
         }
     }
 
-    Button {
-        id: submitBtn
-        text: qsTr("Confirmar Transferência")
-        enabled: requestHttp.state !== requestHttp.stateLoading
-        visible: status === 6
-        anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
-        onClicked: {
-//            var data = ({})
-//            requestHttp.post("confirmar_transferir_objeto/", JSON.stringify(data))
-        }
-    }
+//    Button {
+//        id: submitBtn
+//        text: qsTr("Confirmar Transferência")
+//        enabled: requestHttp.state !== requestHttp.stateLoading
+//        visible: status === 6
+//        anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
+//        onClicked: {
+////            var data = ({})
+////            requestHttp.post("confirmar_transferir_objeto/", JSON.stringify(data))
+//        }
+//    }
 }

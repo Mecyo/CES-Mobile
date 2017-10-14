@@ -53,11 +53,21 @@ ApplicationWindow {
            "isLogin": false
         },
         {
+           "absPath": "TransferenciasAtivas.qml",
+           "title": "Transferências",
+           "icon": "exchange",
+           "roles": ["teacher"],
+           "order": 4,
+           "isHome": false,
+           "showInMenu": true,
+           "isLogin": false
+        },
+        {
            "absPath": "RetirarItem.qml",
            "title": "Retirada de itens",
            "icon": "reply",
            "roles": ["teacher"],
-           "order": 4,
+           "order": 5,
            "isHome": false,
            "showInMenu": true,
            "isLogin": false

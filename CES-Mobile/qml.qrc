@@ -33,5 +33,6 @@
         <file>ShowObjectDetails.qml</file>
         <file>RetirarItem.qml</file>
         <file>DetalhesObjeto.qml</file>
+        <file>TransferenciasAtivas.qml</file>
     </qresource>
 </RCC>

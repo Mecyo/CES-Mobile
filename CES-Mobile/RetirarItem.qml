@@ -6,12 +6,12 @@ BasePage {
     title: qsTr("RetirarItem")
     objectName: "RetirarItem.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
+    onRequestUpdatePage: requestHttp.get("objetos_disponiveis_usuario/" + Settings.userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("objetos_disponiveis/")
+    onRequestHttpReady: requestHttp.get("objetos_disponiveis_usuario/" + Settings.userId)
 
     property var objects
     property int post: 0
@@ -23,7 +23,7 @@ BasePage {
     function solicitarObjeto(objetoId) {
         var dados = ({})
         dados.objeto_id = objetoId
-        dados.usuario_id = 2
+        dados.usuario_id = Settings.userId
         requestHttp.post("emprestar_objeto/", JSON.stringify(dados))
         post = 1
     }
@@ -36,6 +36,12 @@ BasePage {
         id: filterDialog
     }
 
+    Timer {
+        id: popCountdow
+        interval: 2000; repeat: false
+        onTriggered: pageStack.pop()
+    }
+
     Connections {
         target: window
         onEventNotify: if (eventName === "filter") filterDialog.open()
@@ -44,10 +50,13 @@ BasePage {
     Connections {
         target: requestHttp
         onFinished: {
+            console.log("Status ===  " + statusCode)
             if (statusCode != 200)
                 return
-            if(post)
+            if(post) {
                 toast.show(qsTr("Você retirou o objeto com sucesso!"), true, 2900)
+                popCountdow.start()
+            }
             objects = response
             for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
