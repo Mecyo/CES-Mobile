@@ -65,19 +65,20 @@ BasePage {
             Text {
                 text: nomeObjeto
                 anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 11; weight: Font.DemiBold }
+                font { pointSize: 9; weight: Font.DemiBold }
             }
 
             Text {
                 text: dataRetirada
+                visible: status != 1
                 anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 11; weight: Font.DemiBold }
+                font { pointSize: 9; weight: Font.DemiBold }
             }
 
             Text {
                 text: statusName()
                 anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 11; weight: Font.DemiBold }
+                font { pointSize: 9; weight: Font.DemiBold }
             }
         }
     }
@@ -86,6 +87,7 @@ BasePage {
         id: submitBtn
         text: qsTr("Confirmar Transferência")
         enabled: requestHttp.state !== requestHttp.stateLoading
+        visible: status === 6
         anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
         onClicked: {
 //            var data = ({})

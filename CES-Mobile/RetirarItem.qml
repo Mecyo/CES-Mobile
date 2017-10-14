@@ -14,13 +14,18 @@ BasePage {
     onRequestHttpReady: requestHttp.get("objetos_disponiveis/")
 
     property var objects
+    property int post: 0
 
-    function showDetail(delegateIndex) {
-        pageStack.push("ShowObjectDetails.qml", {"details":objects[delegateIndex]})
+    function showDetail(status,nomeObjeto,dataRetirada) {
+        pageStack.push("DetalhesObjeto.qml", {"status": status, "nomeObjeto": nomeObjeto, "dataRetirada": dataRetirada})
     }
 
-    function viewHome() {
-        pageStack.push("Home.qml")
+    function solicitarObjeto(objetoId) {
+        var dados = ({})
+        dados.objeto_id = objetoId
+        dados.usuario_id = 2
+        requestHttp.post("emprestar_objeto/", JSON.stringify(dados))
+        post = 1
     }
 
     Datepicker {
@@ -41,6 +46,8 @@ BasePage {
         onFinished: {
             if (statusCode != 200)
                 return
+            if(post)
+                toast.show(qsTr("Você retirou o objeto com sucesso!"), true, 2900)
             objects = response
             for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
@@ -58,8 +65,8 @@ BasePage {
             primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
-            onClicked: showDetail(index)
-            onSecondaryActionIconClicked: viewHome()
+            secondaryActionIcon.onClicked: solicitarObjeto(id)
+            onClicked: showDetail(status,nome)
         }
     }
 }
