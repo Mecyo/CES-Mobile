@@ -83,15 +83,15 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            badgeText: index+1
+//            badgeText: index+1
             secondaryIconName: "thumbs-up"
             secondaryActionIcon.onClicked: confirmar(movimentacao_id_origem.id, movimentacao_id_destino.id)
             tertiaryIconName: "thumbs-down"
             tertiaryActionIcon.onClicked: cancelar(id)
             badgeBackgroundColor: "white"
             width: parent.width; height: 60
-            primaryLabelText: movimentacao_id_origem.id
-            secondaryLabelText: movimentacao_id_destino.id
+            primaryLabelText: movimentacao_id_origem.usuario_id.name
+            secondaryLabelText: movimentacao_id_origem.objeto_id.nome
             showSeparator: true
         }
     }
