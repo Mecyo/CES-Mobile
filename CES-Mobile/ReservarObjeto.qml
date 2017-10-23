@@ -6,14 +6,26 @@ BasePage {
     title: qsTr("Objetos Disponíveis")
     objectName: "ReservarObjeto.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
+    onRequestUpdatePage: requestHttp.get("exibir_objetos/" + Settings.userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("objetos_disponiveis/")
+    onRequestHttpReady: requestHttp.get("exibir_objetos/" + Settings.userId)
 
     property var objects
+    property int post: 0
+    property var dados: {"tipo": 2,"usuario_id": Settings.userId}
+
+
+    function confirmar(idOrigem, idDestino) {
+        var dados = ({})
+        dados.movimentacao_origem = idOrigem
+        dados.movimentacao_destino = idDestino
+
+        requestHttp.post("solicitar_reserva/", JSON.stringify(dados))
+        post = 1
+    }
 
     function showDetail(delegateIndex) {
         pageStack.push("ReservarObjectDetails.qml", {"details":objects[delegateIndex]})
@@ -39,8 +51,21 @@ BasePage {
     Connections {
         target: requestHttp
         onFinished: {
-            if (statusCode != 200)
+            console.log("Status ===  " + statusCode)
+            if (statusCode != 200) {
+                post = 0
                 return
+            }
+            if(post === 1) {
+                toast.show(qsTr("Você confirmou a transferência!"), true, 2900)
+                popCountdow.start()
+            }
+            else if(post === 2) {
+                toast.show(qsTr("Você cancelou a transferência!"), true, 2900)
+                popCountdow.start()
+            }
+
+            console.log(response)
             objects = response
             for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
@@ -52,14 +77,15 @@ BasePage {
 
         ListItem {
             badgeText: index+1
-            secondaryIconName: "gear"
-            badgeBackgroundColor: (index%2) ? "red" : "yellow"
+            //secondaryIconName: "gear"
+            badgeBackgroundColor: "green"
             width: parent.width; height: 60
             primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
             onClicked: showDetail(index)
             secondaryActionIcon.onClicked: viewHome()
+            //secondaryActionIcon.onClicked: confirmar(movimentacao_id_origem.id, movimentacao_id_destino.id)
         }
     }
 }
