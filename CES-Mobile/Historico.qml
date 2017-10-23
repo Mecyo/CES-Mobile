@@ -54,9 +54,9 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            badgeText: index+1
+//            badgeText: index+1
             secondaryIconName: "gear"
-            badgeBackgroundColor: (index%1) ? "red" : "yellow"
+            //badgeBackgroundColor: (index%1) ? "red" : "yellow"
             width: parent.width; height: 60
             primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome

@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    title: qsTr("RetirarItem")
+    title: qsTr("Retirar Item")
     objectName: "RetirarItem.qml"
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.get("objetos_disponiveis_usuario/" + Settings.userId)

@@ -11,6 +11,7 @@ BasePage {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
+    toolBarState: "goback"
     onRequestHttpReady: requestHttp.get("exibir_usuarios/")
 
     property var objects
@@ -39,7 +40,7 @@ BasePage {
     Timer {
         id: popCountdow
         interval: 3000; repeat: false
-        onTriggered: pageStack.pop()
+        onTriggered: pageStack.push(Qt.resolvedUrl("Home.qml"))
     }
 
     Connections {

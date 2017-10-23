@@ -42,7 +42,7 @@ BasePage {
     Timer {
         id: popCountdow
         interval: 2000; repeat: false
-        onTriggered: pageStack.pop()
+        onTriggered: pageStack.push(Qt.resolvedUrl("Home.qml"))
     }
 
     Rectangle {
