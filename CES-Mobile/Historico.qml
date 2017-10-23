@@ -2,27 +2,26 @@ import QtQuick 2.8
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
+
 BasePage {
-    property int userId: 1
-    title: qsTr("Get a object")
+    title: qsTr("Histórico")
     objectName: "Historico.qml"
     listViewDelegate: pageDelegate
-    //onRequestUpdatePage: requestHttp.get("exibir_objetos/")
-    onRequestUpdatePage: requestHttp.get("movimentacoes_usuario/" + userId)
+    onRequestUpdatePage: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    //onRequestHttpReady: requestHttp.get("exibir_objetos/")
-    onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + userId)
+    onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
 
     property var objects
+    property var selecionado
 
-    function showDetail(delegateIndex) {
-        pageStack.push("HistoricObjectDetails.qml", {"details":objects[delegateIndex]})
+    function showDetail(status,nome,retirada) {
+        pageStack.push("HistoricObjectDetails.qml", {"status": status, "nomeObjeto": nome, "dataRetirada": retirada})
     }
 
-    Datepicker {
+   Datepicker {
         id: datepicker
     }
 
@@ -40,28 +39,22 @@ BasePage {
         onFinished: {
             if (statusCode != 200)
                 return
-            objects = []
-            for (var i = 0; i < response.length; ++i) {
-                objects[i] = response[i].objeto_id
-
+            objects = response
+            for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
-            }
         }
     }
-
 
     Component {
         id: pageDelegate
 
         ListItem {
-//            badgeText: index+1
-            secondaryIconName: "gear"
-            //badgeBackgroundColor: (index%1) ? "red" : "yellow"
+            primaryIconName: objeto_id.tipoObjeto_id.icone
             width: parent.width; height: 60
-            primaryLabelText: nome
-            secondaryLabelText: tipoObjeto_id.nome
+            primaryLabelText: objeto_id.nome
+            secondaryLabelText: Qt.formatDateTime(retirada, "dd/MM/yyyy")
             showSeparator: true
-            onClicked: showDetail(index)
+            onClicked: showDetail(status,objeto_id.nome,retirada)
         }
     }
 }

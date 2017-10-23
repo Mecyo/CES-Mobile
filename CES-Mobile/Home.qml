@@ -59,7 +59,7 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            //primaryIconName: objeto_id.tipoObjeto_id.icone
+            primaryIconName: objeto_id.tipoObjeto_id.icone
             secondaryIconName:  "reply"
             secondaryActionIcon.onClicked: devolver(index)
             tertiaryIconName:  "exchange"
