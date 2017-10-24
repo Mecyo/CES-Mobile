@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 
 BasePage {
-    title: qsTr("Detalhes do objeto")
+    title: qsTr("Reserva do objeto")
     objectName: "ReservarObjectDetails.qml"
     hasListView: false
     toolBarState: "goback"
@@ -25,6 +25,7 @@ BasePage {
     Connections {
         target: requestHttp
         onFinished: {
+            console.log("Status: " + statusCode)
             if (statusCode != 200) {
                 return
             } else {
@@ -53,12 +54,6 @@ BasePage {
             width: parent.width; height: parent.height
 
             Text {
-                text: qsTr("Book the object")
-                anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 16; weight: Font.DemiBold }
-            }
-
-            Text {
                 text: details.nome
                 anchors.horizontalCenter: parent.horizontalCenter
                 font { pointSize: 11; weight: Font.DemiBold }
@@ -71,7 +66,7 @@ BasePage {
 
                 Text {
                     id: _dateText
-                    text: qsTr("Date: ")
+                    text: qsTr("Data solicitada: ")
                     anchors.verticalCenter: parent.verticalCenter
                     font { pointSize: 11; weight: Font.DemiBold }
                 }
@@ -94,7 +89,7 @@ BasePage {
 
                 Text {
                     id: _timeText
-                    text: qsTr("Time: ")
+                    text: qsTr("Hora solicitada: ")
                     anchors.verticalCenter: parent.verticalCenter
                     font { pointSize: 11; weight: Font.DemiBold }
                 }
@@ -102,7 +97,7 @@ BasePage {
                 TextField {
                     id: bookTime
                     readOnly: true
-                    text: new Date().toTimeString()
+                    text: new Date().toLocaleTimeString("HH:mm")
                     width: (parent.width + _dateText.implicitWidth)/2
                     placeholderText: qsTr("tap to select a date")
                     anchors.verticalCenter: parent.verticalCenter
@@ -114,14 +109,16 @@ BasePage {
 
     Button {
         id: submitBtn
-        text: qsTr("Reservar novamente?")
-        enabled: requestHttp.state !== requestHttp.stateLoading
+        text: qsTr("Reservar objeto")
+        //enabled: requestHttp.state !== requestHttp.stateLoading
         anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
         onClicked: {
             var data = ({})
-            data.usuario_id = window.user.profile.id
             data.objeto_id = details.id
-            requestHttp.post("emprestar_objeto/", JSON.stringify(data))
+            data.data_reserva = bookDate.text + " " + bookTime.text
+            data.usuario_id = Settings.userId
+
+            requestHttp.post("solicitar_reserva/", JSON.stringify(data))
         }
     }
 }
