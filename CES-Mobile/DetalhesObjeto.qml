@@ -14,14 +14,14 @@ BasePage {
 
     function statusName(status) {
         switch(status) {
-            case 1: return "Solicitado retirada"
-            case 2: return "Emprestado"
-            case 3: return "Solicitado Devolução"
-            case 4: return "Devolvido"
-            case 5: return "Solicitado Transferência"
-            case 6: return "Transferencia pendente"
-            case 7: return "Transferência confirmada"
-            case 8: return "Reservado"
+        case 1: return "Solicitado retirada"
+        case 2: return "Emprestado"
+        case 3: return "Solicitado Devolução"
+        case 4: return "Devolvido"
+        case 5: return "Solicitado Transferência"
+        case 6: return "Transferencia pendente"
+        case 7: return "Transferência confirmada"
+        case 8: return "Reservado"
         }
     }
 
@@ -44,123 +44,66 @@ BasePage {
     }
 
     Flickable {
-           id: flickable
-           anchors.fill: parent
-           contentHeight: Math.max(column.implicitHeight + 50, height)
+        id: flickable
+        anchors.fill: parent
+        contentHeight: Math.max(column.implicitHeight + 50, height)
 
-           ColumnLayout {
-               id: column
-               spacing: 0
-               width: page.width
-               anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
+        ColumnLayout {
+            id: column
+            spacing: 0
+            width: page.width
+            anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
 
-               ListItem {
-                   showSeparator: true
-                   primaryLabelText: qsTr("Nome do Objeto")
-                   secondaryLabelText: details.objeto_id.nome
-                   primaryIconName: "user"
-               }
+            ListItem {
+                showSeparator: true
+                primaryLabelText: qsTr("Nome do Objeto")
+                secondaryLabelText: details.objeto_id.nome
+                primaryIconName: "user"
+            }
 
-               ListItem {
-                   showSeparator: true
-                   primaryLabelText: qsTr("Responsável")
-                   secondaryLabelText: details.usuario_id.profileName.nome + " " + details.usuario_id.name
-                   primaryIconName: "envelope"
-               }
+            ListItem {
+                showSeparator: true
+                primaryLabelText: qsTr("Responsável")
+                secondaryLabelText: details.usuario_id.profileName.nome + " " + details.usuario_id.name
+                primaryIconName: "envelope"
+            }
 
-               ListItem {
-                   showSeparator: true
-                   primaryLabelText: qsTr("Data de Retirada")
-                   secondaryLabelText: Qt.formatDateTime(details.retirada, "dd/MM/yyyy HH:mm")
-                   primaryIconName: "envelope"
-                   visible: details.retirada !== null ? true : false
-               }
+            ListItem {
+                showSeparator: true
+                primaryLabelText: qsTr("Data de Retirada")
+                secondaryLabelText: Qt.formatDateTime(details.retirada, "dd/MM/yyyy HH:mm")
+                primaryIconName: "envelope"
+                visible: details.retirada !== null ? true : false
+            }
 
-               ListItem {
-                   showSeparator: true
-                   primaryLabelText: qsTr("Data de Reserva")
-                   secondaryLabelText: Qt.formatDateTime(details.reserva, "dd/MM/yyyy HH:mm")
-                   primaryIconName: "bookmark"
-                   visible: details.reserva !== null ? true : false
-               }
+            ListItem {
+                showSeparator: true
+                primaryLabelText: qsTr("Data de Reserva")
+                secondaryLabelText: Qt.formatDateTime(details.reserva, "dd/MM/yyyy HH:mm")
+                primaryIconName: "bookmark"
+                visible: details.reserva !== null ? true : false
+            }
 
-               ListItem {
-                   showSeparator: true
-                   primaryLabelText: qsTr("Status")
-                   secondaryLabelText: statusName(details.status)
-                   primaryIconName: "bookmark"
-               }
+            ListItem {
+                showSeparator: true
+                primaryLabelText: qsTr("Status")
+                secondaryLabelText: statusName(details.status)
+                primaryIconName: "bookmark"
+            }
 
-                   Button {
-                       id: devolverButton
-                       text: qsTr("Devolver Objeto")
-                       enabled: requestHttp.state !== requestHttp.stateLoading
-                       visible: details.status === 2 && 7
-                       anchors {horizontalCenter: parent.horizontalCenter }
-                       onClicked: {
-                        var dados = ({})
-                           dados.movimentacao_id = details.id
-                           requestHttp.post("devolver_objeto/", JSON.stringify(dados))
-                       }
-                   }
+            Button {
+                id: devolverButton
+                text: qsTr("Devolver Objeto")
+                enabled: requestHttp.state !== requestHttp.stateLoading
+                visible: details.status === 2 && 7
+                anchors {horizontalCenter: parent.horizontalCenter }
+                onClicked: {
+                    var dados = ({})
+                    dados.movimentacao_id = details.id
+                    requestHttp.post("devolver_objeto/", JSON.stringify(dados))
+                }
+            }
 
-           }
-       }
-
-//    Button {
-//        id: submitBtn
-//        text: qsTr("Confirmar Transferência")
-//        enabled: requestHttp.state !== requestHttp.stateLoading
-//        visible: status === 6
-//        anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
-//        onClicked: {
-////            var data = ({})
-////            requestHttp.post("confirmar_transferir_objeto/", JSON.stringify(data))
-//        }
-//    }
+        }
+    }
 }
-
-
-
-
-
-//    Rectangle {
-//        id: detailsRec
-//        width: parent.width * 0.90; height: parent.height / 2
-//        radius: width
-//        color: "transparent"
-//        anchors { top: parent.top; topMargin: 10; horizontalCenter: parent.horizontalCenter }
-
-//        Column {
-//            spacing: 10
-//            anchors.centerIn: parent
-//            width: parent.width; height: parent.height
-
-//            Text {
-//                text: qsTr("Informações do objeto")
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                font { pointSize: 16; weight: Font.DemiBold }
-//            }
-
-//            Text {
-//                text: nomeObjeto
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                font { pointSize: 9; weight: Font.DemiBold }
-//            }
-
-//            Text {
-//                text: dataRetirada
-//                visible: status != 1
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                font { pointSize: 9; weight: Font.DemiBold }
-//            }
-
-//            Text {
-//                text: statusName()
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                font { pointSize: 9; weight: Font.DemiBold }
-//            }
-//        }
-//    }
-
-
