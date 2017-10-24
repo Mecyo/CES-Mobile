@@ -33,7 +33,7 @@ BasePage {
         dados.transferencia_id = id
 
         requestHttp.post("cancelar_transferir_objeto/", JSON.stringify(dados))
-        post = 1
+        post = 2
     }
 
     Datepicker {

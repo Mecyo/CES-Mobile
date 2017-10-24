@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 
 BasePage {
-    title: qsTr("Reserva do objeto")
+    title: qsTr(details.nome)
     objectName: "ReservarObjectDetails.qml"
     hasListView: false
     toolBarState: "goback"
@@ -19,23 +19,29 @@ BasePage {
         id: frame
         padding: 0
         visible: false
-        anchors.centerIn: parent
+        width: parent.width
+        anchors{ horizontalCenter: parent.horizontalCenter; bottom: parent.bottom}
         z: parent.z + 1
+
         ColumnLayout {
             anchors.centerIn: parent
+            width: parent.width
             Row {
                 id: row
+                width: parent.width
 
                 Tumbler {
                     id: hoursTumbler
                     model: 24
                     delegate: delegateComponent
+                    width: parent.width * 0.50
                 }
 
                 Tumbler {
                     id: minutesTumbler
                     model: 60
                     delegate: delegateComponent
+                    width: parent.width * 0.50
                 }
             }
             Button {
@@ -79,21 +85,15 @@ BasePage {
         color: "transparent"
         anchors { top: parent.top; topMargin: 10; horizontalCenter: parent.horizontalCenter }
 
-        Column {
+        ColumnLayout {
             spacing: 10
             anchors.centerIn: parent
-            width: parent.width; height: parent.height
-
-            Text {
-                text: details.nome
-                anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 11; weight: Font.DemiBold }
-            }
+            width: parent.width * 0.50; height: parent.height * 0.50
 
             Row {
                 spacing: 5
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width * 0.60; height: 50
+                width: parent.width * 0.50; height: 50
 
                 Text {
                     id: _dateText
@@ -106,7 +106,7 @@ BasePage {
                     id: bookDate
                     readOnly: true
                     text: "00/00/0000"
-                    width: (parent.width + _dateText.implicitWidth)/2
+                    width: (parent.width * 0.50 + _dateText.implicitWidth)/2
                     placeholderText: qsTr("Aperte para selecionar uma data")
                     anchors.verticalCenter: parent.verticalCenter
                     onFocusChanged: if (focus) _datepicker.open()
@@ -129,7 +129,7 @@ BasePage {
                     id: bookTime
                     readOnly: true
                     text: timeCurrent
-                    width: (parent.width + _dateText.implicitWidth)/2
+                    width: (parent.width * 0.50 + _dateText.implicitWidth)/2
                     placeholderText: qsTr("tap to select a date")
                     anchors.verticalCenter: parent.verticalCenter
                     onFocusChanged: if (focus) frame.visible = true
@@ -142,7 +142,7 @@ BasePage {
         id: submitBtn
         text: qsTr("Reservar objeto")
         visible: !frame.visible
-        //enabled: requestHttp.state !== requestHttp.stateLoading
+        enabled: requestHttp.state !== requestHttp.stateLoading
         anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
         onClicked: {
             var data = ({})

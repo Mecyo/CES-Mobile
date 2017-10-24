@@ -39,7 +39,7 @@ BasePage {
     Timer {
         id: popCountdow
         interval: 2000; repeat: false
-        onTriggered: pageStack.pop()
+        onTriggered: pageStack.push("Home.qml")
     }
 
     Connections {
@@ -67,15 +67,13 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            badgeText: index+1
-            secondaryIconName: "reply"
-            badgeBackgroundColor: (index%2) ? "red" : "yellow"
+            primaryIconName: objeto_id.tipoObjeto_id.icone
+            tertiaryIconName: "reply"
+            tertiaryActionIcon.onClicked: solicitarObjeto(id)
             width: parent.width; height: 60
             primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
-            secondaryActionIcon.onClicked: solicitarObjeto(id)
-            onClicked: showDetail(status,nome)
         }
     }
 }

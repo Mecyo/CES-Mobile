@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 ApplicationWindow {
     id: window
     visible: true
-    width: 360; height: 580
+    width: 420; height: 600
     title: qsTr("Hello World")
     x: 510; y: 75
     Component.onCompleted: pageStack.push(Qt.resolvedUrl("Home.qml"))
@@ -35,7 +35,7 @@ ApplicationWindow {
         {
             "absPath": "ReservarObjeto.qml",
             "title": "Reserva de Objetos",
-            "icon": "gears",
+            "icon": "bookmark",
             "roles": ["teacher"],
             "order": 2,
             "isHome": false,
@@ -45,7 +45,7 @@ ApplicationWindow {
         {
            "absPath": "Historico.qml",
            "title": "Histórico de Objetos",
-           "icon": "gears",
+           "icon": "history",
            "roles": ["teacher"],
            "order": 3,
            "isHome": false,

@@ -15,14 +15,13 @@ BasePage {
     onRequestHttpReady: requestHttp.get("exibir_usuarios/")
 
     property var objects
-    property int objetoId
-    property int movimentacaoId
+    property var details
     property int post: 0
 
     function transferir(usuarionovoId) {
         var dados = ({})
-        dados.objeto_id = objetoId
-        dados.movimentacao_id = movimentacaoId
+        dados.objeto_id = details.objeto_id.id
+        dados.movimentacao_id = details.id
         dados.novo_usuario_id = usuarionovoId
 
         requestHttp.post("transferir_objeto/", JSON.stringify(dados))
@@ -71,8 +70,8 @@ BasePage {
 
         ListItem {
             badgeText: index+1
-            secondaryIconName: "exchange"
-            secondaryActionIcon.onClicked: transferir(id)
+            tertiaryIconName: "exchange"
+            tertiaryActionIcon.onClicked: transferir(id)
             badgeBackgroundColor: "white"
             width: parent.width; height: 60
             primaryLabelText: name

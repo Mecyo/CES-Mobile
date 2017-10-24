@@ -28,10 +28,6 @@ BasePage {
     property var objects
     property var selecionado
 
-    function showDetail(status,nome,retirada) {
-        pageStack.push("HistoricObjectDetails.qml", {"status": status, "nomeObjeto": nome, "dataRetirada": retirada})
-    }
-
     ListModel {
         id: buscaModel
     }
@@ -115,9 +111,8 @@ BasePage {
             primaryIconName: objeto_id.tipoObjeto_id.icone
             width: parent.width; height: 60
             primaryLabelText: objeto_id.nome
-            secondaryLabelText: Qt.formatDateTime(dataRetirada, "dd/MM/yyyy")
+            secondaryLabelText: objects[index].devolucao !== null  ? "Devolvido em " + Qt.formatDateTime(objects[index].devolucao, "dd/MM/yyyy HH:mm") : "Não foi devolvido ainda"
             showSeparator: true
-            onClicked: showDetail(status,objeto_id.nome,dataRetirada)
         }
     }
 }

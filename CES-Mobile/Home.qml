@@ -15,24 +15,13 @@ BasePage {
     onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + Settings.userId)
 
     property var objects
-    property var selecionado
 
-    function showDetail(status,nomeObjeto,dataRetirada) {
-        pageStack.push("DetalhesObjeto.qml", {"status": status, "nomeObjeto": nomeObjeto, "dataRetirada": dataRetirada})
+    function showDetail(delegateIndex) {
+        pageStack.push("DetalhesObjeto.qml", {"details": objects[delegateIndex]})
     }
 
-    function devolver(delegateIndex) {
-        selecionado = objects[delegateIndex].objeto_id
-        console.log("Devolvendo o Objeto: ", JSON.stringify(selecionado))
-        pageStack.push("ShowObjectDetails.qml", {"details":selecionado})
-    }
-
-    function transferir(objeto_id, movimentacao_id) {
-        pageStack.push("Transference.qml", {"objetoId":objeto_id, "movimentacaoId":movimentacao_id})
-    }
-
-    Datepicker {
-        id: datepicker
+    function transferir(delegateIndex) {
+        pageStack.push("Transference.qml", {"details":objects[delegateIndex]})
     }
 
     FilterDialog {
@@ -60,15 +49,13 @@ BasePage {
 
         ListItem {
             primaryIconName: objeto_id.tipoObjeto_id.icone
-            secondaryIconName:  "reply"
-            secondaryActionIcon.onClicked: devolver(index)
             tertiaryIconName:  "exchange"
-            tertiaryActionIcon.onClicked: transferir(objeto_id.id, id)
+            tertiaryActionIcon.onClicked: transferir(index)
             width: parent.width; height: 60
             primaryLabelText: objeto_id.nome
-            secondaryLabelText: Qt.formatDateTime(retirada, "dd/MM/yyyy")
+            secondaryLabelText: Qt.formatDateTime(objects[index].retirada === null ? objects[index].reserva : objects[index].retirada, "dd/MM/yyyy HH:mm")
             showSeparator: true
-            onClicked: showDetail(status,objeto_id.nome,retirada)
+            onClicked: showDetail(index)
         }
     }
 }

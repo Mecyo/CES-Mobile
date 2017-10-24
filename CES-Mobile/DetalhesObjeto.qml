@@ -3,17 +3,16 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 
 BasePage {
+    id: page
     title: qsTr("Detalhes do objeto")
     objectName: "DetalhesObjeto.qml"
     hasListView: false
     toolBarState: "goback"
 
-    property int status
-    property string nomeObjeto
-    property string dataRetirada
+    property var details
     property var dados: ({"tipo": 2,"usuario_id": Settings.userId})
 
-    function statusName() {
+    function statusName(status) {
         switch(status) {
             case 1: return "Solicitado retirada"
             case 2: return "Emprestado"
@@ -26,63 +25,87 @@ BasePage {
         }
     }
 
-
     Connections {
         target: requestHttp
         onFinished: {
             if (statusCode != 200) {
                 return
             } else {
-                toast.show(qsTr("Você reservou o objeto com sucesso!"), true, 2900)
-                popCountdow.start()
+                toast.show(qsTr("Você devolveu o objeto com sucesso!"), true, 2900)
+                popCountdown.start()
             }
         }
     }
 
     Timer {
-        id: popCountdow
+        id: popCountdown
         interval: 2000; repeat: false
         onTriggered: pageStack.push(Qt.resolvedUrl("Home.qml"))
     }
 
-    Rectangle {
-        id: detailsRec
-        width: parent.width * 0.90; height: parent.height / 2
-        radius: width
-        color: "transparent"
-        anchors { top: parent.top; topMargin: 10; horizontalCenter: parent.horizontalCenter }
+    Flickable {
+           id: flickable
+           anchors.fill: parent
+           contentHeight: Math.max(column.implicitHeight + 50, height)
 
-        Column {
-            spacing: 10
-            anchors.centerIn: parent
-            width: parent.width; height: parent.height
+           ColumnLayout {
+               id: column
+               spacing: 0
+               width: page.width
+               anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
 
-            Text {
-                text: qsTr("Informações do objeto")
-                anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 16; weight: Font.DemiBold }
-            }
+               ListItem {
+                   showSeparator: true
+                   primaryLabelText: qsTr("Nome do Objeto")
+                   secondaryLabelText: details.objeto_id.nome
+                   primaryIconName: "user"
+               }
 
-            Text {
-                text: nomeObjeto
-                anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 9; weight: Font.DemiBold }
-            }
+               ListItem {
+                   showSeparator: true
+                   primaryLabelText: qsTr("Responsável")
+                   secondaryLabelText: details.usuario_id.profileName.nome + " " + details.usuario_id.name
+                   primaryIconName: "envelope"
+               }
 
-            Text {
-                text: dataRetirada
-                visible: status != 1
-                anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 9; weight: Font.DemiBold }
-            }
+               ListItem {
+                   showSeparator: true
+                   primaryLabelText: qsTr("Data de Retirada")
+                   secondaryLabelText: Qt.formatDateTime(details.retirada, "dd/MM/yyyy HH:mm")
+                   primaryIconName: "envelope"
+                   visible: details.retirada !== null ? true : false
+               }
 
-            Text {
-                text: statusName()
-                anchors.horizontalCenter: parent.horizontalCenter
-                font { pointSize: 9; weight: Font.DemiBold }
-            }
-        }
-    }
+               ListItem {
+                   showSeparator: true
+                   primaryLabelText: qsTr("Data de Reserva")
+                   secondaryLabelText: Qt.formatDateTime(details.reserva, "dd/MM/yyyy HH:mm")
+                   primaryIconName: "bookmark"
+                   visible: details.reserva !== null ? true : false
+               }
+
+               ListItem {
+                   showSeparator: true
+                   primaryLabelText: qsTr("Status")
+                   secondaryLabelText: statusName(details.status)
+                   primaryIconName: "bookmark"
+               }
+
+                   Button {
+                       id: devolverButton
+                       text: qsTr("Devolver Objeto")
+                       enabled: requestHttp.state !== requestHttp.stateLoading
+                       visible: details.status === 2 && 7
+                       anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
+                       onClicked: {
+                        var dados = ({})
+                           dados.movimentacao_id = details.id
+                           requestHttp.post("devolver_objeto/", JSON.stringify(dados))
+                       }
+                   }
+
+           }
+       }
 
 //    Button {
 //        id: submitBtn
@@ -96,3 +119,48 @@ BasePage {
 //        }
 //    }
 }
+
+
+
+
+
+//    Rectangle {
+//        id: detailsRec
+//        width: parent.width * 0.90; height: parent.height / 2
+//        radius: width
+//        color: "transparent"
+//        anchors { top: parent.top; topMargin: 10; horizontalCenter: parent.horizontalCenter }
+
+//        Column {
+//            spacing: 10
+//            anchors.centerIn: parent
+//            width: parent.width; height: parent.height
+
+//            Text {
+//                text: qsTr("Informações do objeto")
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                font { pointSize: 16; weight: Font.DemiBold }
+//            }
+
+//            Text {
+//                text: nomeObjeto
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                font { pointSize: 9; weight: Font.DemiBold }
+//            }
+
+//            Text {
+//                text: dataRetirada
+//                visible: status != 1
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                font { pointSize: 9; weight: Font.DemiBold }
+//            }
+
+//            Text {
+//                text: statusName()
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                font { pointSize: 9; weight: Font.DemiBold }
+//            }
+//        }
+//    }
+
+
