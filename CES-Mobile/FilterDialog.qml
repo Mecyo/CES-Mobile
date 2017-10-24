@@ -30,8 +30,14 @@ Popup {
         return {
             "objectType": objectType.currentText,
             "objectStatus": objectStatus.currentText,
-            "dataRetirada": dateField.data
+            "dataRetirada": dateField.text
         }
+    }
+
+    Timer {
+        id: asyncNotify
+        interval: 250; running: false
+        onTriggered: accepted(getFilterData())
     }
 
     signal accepted(var filterData)
@@ -76,8 +82,7 @@ Popup {
             ComboBox {
                 id: objectType
                 width: parent.width
-                model: objeto_id.status
-//                onAccepted: { }
+                model: window.objectTypes
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -94,8 +99,7 @@ Popup {
             ComboBox {
                 id: objectStatus
                 width: parent.width
-                model: objeto_id.status
-//                onAccepted: { }
+                model: ["Indisponivel"]
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -163,7 +167,7 @@ Popup {
             Material.foreground: Material.BlueGrey
             onClicked: {
                 _dialog.close()
-                accepted(getFilterData())
+                asyncNotify.start()
             }
         }
     }

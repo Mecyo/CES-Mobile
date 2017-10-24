@@ -8,10 +8,6 @@ BasePage {
     objectName: "Home.qml"
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + Settings.userId)
-    toolBarActions: {
-       "toolButton3": {"action":"filter", "icon":"filter"},
-       "toolButton4": {"action":"search", "icon":"search"}
-    }
     onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + Settings.userId)
 
     property var objects
@@ -22,15 +18,6 @@ BasePage {
 
     function transferir(delegateIndex) {
         pageStack.push("Transference.qml", {"details":objects[delegateIndex]})
-    }
-
-    FilterDialog {
-        id: filterDialog
-    }
-
-    Connections {
-        target: window
-        onEventNotify: if (eventName === "filter") filterDialog.open()
     }
 
     Connections {
@@ -49,7 +36,7 @@ BasePage {
 
         ListItem {
             primaryIconName: objeto_id.tipoObjeto_id.icone
-            tertiaryIconName:  "exchange"
+            tertiaryIconName: "exchange"
             tertiaryActionIcon.onClicked: transferir(index)
             width: parent.width; height: 60
             primaryLabelText: objeto_id.nome

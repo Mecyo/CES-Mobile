@@ -2,7 +2,6 @@ import QtQuick 2.8
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
-
 BasePage {
     title: qsTr("Histórico")
     objectName: "Historico.qml"
@@ -14,7 +13,7 @@ BasePage {
     }
     onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
 
-  /*  onListViewReady: {
+  /*onListViewReady: {
         var json = [
             {"status": 0, "objeto_id": {"nomeObjeto": "Projetor sony"}, "dataRetirada": "16/07/802701 14:00"},
             {"status": 1, "objeto_id": {"nomeObjeto": "Chave sony"}, "dataRetirada": "16/07/2701 14:00"},
@@ -45,9 +44,10 @@ BasePage {
         onAccepted: {
             // filterData
             if (originalModel.count == 0) {
-                for (var i = 0; i < listViewModel.count; i++)
-                    originalModel.append(listViewModel.get(i))
-            }
+               for (var i = 0; i < listViewModel.count; i++)
+                   originalModel.append(listViewModel.get(i))
+           }
+            console.log("filterData: ", JSON.stringify(filterData))
             for (i = 0; i< originalModel.count; ++i) {
                 var found = true
                 var compareObjc = ({})
@@ -66,11 +66,11 @@ BasePage {
                     buscaModel.append(objc)
                 }
             }
-            if (!buscaModel.count)
+           if (!buscaModel.count)
                 return
-            toolBarState = "cancel"
-            listViewModel.clear()
-            for (i = 0; i < buscaModel.count; ++i)
+           toolBarState = "cancel"
+           listViewModel.clear()
+           for (i = 0; i < buscaModel.count; ++i)
                 listViewModel.append(buscaModel.get(i))
         }
     }
@@ -107,7 +107,7 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            primaryIconName: objeto_id.tipoObjeto_id.icone
+            primaryIconName: "gears"
             width: parent.width; height: 60
             primaryLabelText: objeto_id.nome
             secondaryLabelText: objects[index].devolucao !== null  ? "Devolvido em " + Qt.formatDateTime(objects[index].devolucao, "dd/MM/yyyy HH:mm") : "Não foi devolvido ainda"

@@ -8,7 +8,9 @@ ApplicationWindow {
     width: 420; height: 600
     title: qsTr("Hello World")
     x: 510; y: 75
-    Component.onCompleted: pageStack.push(Qt.resolvedUrl("Home.qml"))
+    Component.onCompleted: {
+        pageStack.push(Qt.resolvedUrl("Home.qml"))
+    }
 
     property bool isIOS: Qt.platform.os === "ios"
     property alias currentPage: pageStack.currentItem
@@ -21,6 +23,7 @@ ApplicationWindow {
             "name": "Enoque Joseneas"
         }
     }
+
     property var pages: [
         {
            "absPath": "Home.qml",
@@ -74,6 +77,9 @@ ApplicationWindow {
         }
     ]
 
+    property var objectTypes: []
+    property var objectStatus: []
+
     // this signal can be used to pages make connections to some events
     // like push notification message|token, send by android QtActivity and iOS AppDelegate
     signal eventNotify(string eventName, var eventData)
@@ -87,6 +93,11 @@ ApplicationWindow {
     Loader {
         asynchronous: false
         source: "Menu.qml"
+    }
+
+    Loader {
+        asynchronous: false; active: true
+        source: "LoadFilterDialogData.qml"
     }
 
     Toast {

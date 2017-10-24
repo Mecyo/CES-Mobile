@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>BasePage.qml</file>
+        <file>LoadFilterDialogData.qml</file>
         <file>CustomListView.qml</file>
         <file>CustomTextField.qml</file>
         <file>Datepicker.qml</file>
