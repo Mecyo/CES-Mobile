@@ -9,12 +9,43 @@ BasePage {
     toolBarState: "goback"
 
     property var details
-    property var currentDate: new Date()
+    property var timeCurrent: hoursTumbler.currentIndex+ ":"+ minutesTumbler.currentIndex
 
     Component.onCompleted: console.log("details: ", JSON.stringify(details))
 
-    TimePicker {
-        id: _timePicker
+    onTimeCurrentChanged: bookTime.text = timeCurrent
+
+    Frame {
+        id: frame
+        padding: 0
+        visible: false
+        anchors.centerIn: parent
+        z: parent.z + 1
+        ColumnLayout {
+            anchors.centerIn: parent
+            Row {
+                id: row
+
+                Tumbler {
+                    id: hoursTumbler
+                    model: 24
+                    delegate: delegateComponent
+                }
+
+                Tumbler {
+                    id: minutesTumbler
+                    model: 60
+                    delegate: delegateComponent
+                }
+            }
+            Button {
+                id: amPmTumbler
+                text: "Fechar"
+                onClicked: frame.visible = false
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: frame.bottom
+            }
+        }
     }
 
     Datepicker {
@@ -74,7 +105,7 @@ BasePage {
                 TextField {
                     id: bookDate
                     readOnly: true
-                    text: "%1/%2/%3".arg(currentDate.getDay()).arg(currentDate.getMonth()).arg(currentDate.getFullYear())
+                    text: "00/00/0000"
                     width: (parent.width + _dateText.implicitWidth)/2
                     placeholderText: qsTr("Aperte para selecionar uma data")
                     anchors.verticalCenter: parent.verticalCenter
@@ -97,11 +128,11 @@ BasePage {
                 TextField {
                     id: bookTime
                     readOnly: true
-                    text: new Date().toLocaleTimeString("HH:mm")
+                    text: timeCurrent
                     width: (parent.width + _dateText.implicitWidth)/2
                     placeholderText: qsTr("tap to select a date")
                     anchors.verticalCenter: parent.verticalCenter
-                    onFocusChanged: if (focus) _timePicker.open()
+                    onFocusChanged: if (focus) frame.visible = true
                 }
             }
         }
@@ -110,6 +141,7 @@ BasePage {
     Button {
         id: submitBtn
         text: qsTr("Reservar objeto")
+        visible: !frame.visible
         //enabled: requestHttp.state !== requestHttp.stateLoading
         anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
         onClicked: {
