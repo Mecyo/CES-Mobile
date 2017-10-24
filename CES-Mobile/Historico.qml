@@ -98,7 +98,6 @@ BasePage {
             if (statusCode != 200)
                 return
             objects = response
-            console.log("response: ", response)
             for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
         }

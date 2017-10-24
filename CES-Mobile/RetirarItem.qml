@@ -50,7 +50,6 @@ BasePage {
     Connections {
         target: requestHttp
         onFinished: {
-            console.log("Status ===  " + statusCode)
             if (statusCode != 200)
                 return
             if(post) {
@@ -67,7 +66,7 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            primaryIconName: objeto_id.tipoObjeto_id.icone
+            primaryIconName: tipoObjeto_id.icone
             tertiaryIconName: "reply"
             tertiaryActionIcon.onClicked: solicitarObjeto(id)
             width: parent.width; height: 60

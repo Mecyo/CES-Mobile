@@ -51,7 +51,6 @@ BasePage {
     Connections {
         target: requestHttp
         onFinished: {
-            console.log("Status ===  " + statusCode)
             if (statusCode != 200) {
                 post = 0
                 return
@@ -64,8 +63,6 @@ BasePage {
                 toast.show(qsTr("Você cancelou a transferência!"), true, 2900)
                 popCountdow.start()
             }
-
-            console.log(response)
             objects = response
             for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])

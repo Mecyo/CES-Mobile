@@ -62,7 +62,6 @@ BasePage {
     Connections {
         target: requestHttp
         onFinished: {
-            console.log("Status: " + statusCode)
             if (statusCode != 200) {
                 return
             } else {
