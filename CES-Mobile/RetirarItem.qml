@@ -6,12 +6,12 @@ BasePage {
     title: qsTr("Retirar Item")
     objectName: "RetirarItem.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("objetos_disponiveis_usuario/" + Settings.userId)
+    onRequestUpdatePage: requestHttp.get("objetos_disponiveis_usuario/" + window.user.id)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("objetos_disponiveis_usuario/" + Settings.userId)
+    onRequestHttpReady: requestHttp.get("objetos_disponiveis_usuario/" + window.user.id)
 
     property var objects
     property int post: 0

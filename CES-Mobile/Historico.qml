@@ -2,34 +2,22 @@ import QtQuick 2.8
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
-
 BasePage {
     title: qsTr("Histórico")
     objectName: "Historico.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
+    onRequestUpdatePage: requestHttp.get("movimentacoes_usuario/" + window.user.id)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
-
-  /*  onListViewReady: {
-        var json = [
-            {"status": 0, "objeto_id": {"nomeObjeto": "Projetor sony"}, "dataRetirada": "16/07/802701 14:00"},
-            {"status": 1, "objeto_id": {"nomeObjeto": "Chave sony"}, "dataRetirada": "16/07/2701 14:00"},
-            {"status": 2, "objeto_id": {"nomeObjeto": "Projetor sega"}, "dataRetirada": "15/07/9000 14:00"},
-            {"status": 2, "objeto_id": {"nomeObjeto": "Chave sega"}, "dataRetirada": "28/07/1993 14:00"}
-        ]
-        for (var i = 0; i < json.length; i++)
-            listViewModel.append(json[i])
-    }*/
+    onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + window.user.id)
 
     property var objects
     property var selecionado
 
-    function showDetail(status,nome,retirada) {
-        pageStack.push("HistoricObjectDetails.qml", {"status": status, "nomeObjeto": nome, "dataRetirada": retirada})
+    function showDetail(delegateIndex) {
+        pageStack.push("HistoricObjectDetails.qml", {"details":objects[delegateIndex]})
     }
 
     ListModel {
@@ -117,7 +105,7 @@ BasePage {
             primaryLabelText: objeto_id.nome
             secondaryLabelText: Qt.formatDateTime(dataRetirada, "dd/MM/yyyy")
             showSeparator: true
-            onClicked: showDetail(status,objeto_id.nome,dataRetirada)
+            onClicked: showDetail(index)
         }
     }
 }
