@@ -7,12 +7,12 @@ BasePage {
     title: qsTr("Objetos com você")
     objectName: "Home.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + window.user.id)
+    onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + Settings.userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + window.user.id)
+    onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + Settings.userId)
 
     property var objects
     property var selecionado
@@ -22,36 +22,13 @@ BasePage {
     }
 
     function devolver(delegateIndex) {
-    	selecionado = objects[delegateIndex].objeto_id
-
-        requestHttp.post("devolver_objeto/", JSON.stringify(selecionado))
-        toast.show(qsTr("Solicitação de devolução efetuada com sucesso!\nAguarde confirmação!"), true, 2900)
-        popCountdow.start()
-    }
-    
-    function transferir(delegateIndex) {
-    	selecionado = objects[delegateIndex].objeto_id
-        pageStack.push("Transference.qml", {"selecionado":selecionado})
+        selecionado = objects[delegateIndex].objeto_id
+        console.log("Devolvendo o Objeto: ", JSON.stringify(selecionado))
+        pageStack.push("ShowObjectDetails.qml", {"details":selecionado})
     }
 
-    function isTransfer(status) {
-        return status === 6
-    }
-
-    function confirmTransfer(delegateIndex) {
-        //confirmar_transferir_objeto/
-        id = objects[delegateIndex].id
-    }
-
-    function cancelTransfer(delegateIndex) {
-        return status === 6
-    }
-
-    Row {
-        Label {
-            id: labelUserName
-            text: "Objetos com você, " + window.user.perfilUsuario_id.nome + " " + window.user.name
-        }
+    function transferir(objeto_id, movimentacao_id) {
+        pageStack.push("Transference.qml", {"objetoId":objeto_id, "movimentacaoId":movimentacao_id})
     }
 
     Datepicker {
@@ -82,16 +59,14 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            backgroundColor:  isTransfer(status) ? "red" : "white"
             primaryIconName: objeto_id.tipoObjeto_id.icone
-            secondaryIconName:  isTransfer(status) ? "check" : "reply"
-            secondaryActionIcon.onClicked: isTransfer(status) ? confirmTransfer(index) : devolver(index)
-            tertiaryIconName:  isTransfer(status) ? "times" : "exchange"
-            tertiaryActionIcon.onClicked: isTransfer(status) ? cancelTransfer(index) : transferir(index)
+            secondaryIconName:  "reply"
+            secondaryActionIcon.onClicked: devolver(index)
+            tertiaryIconName:  "exchange"
+            tertiaryActionIcon.onClicked: transferir(objeto_id.id, id)
             width: parent.width; height: 60
             primaryLabelText: objeto_id.nome
-            secondaryLabel.font.pointSize: 9
-            secondaryLabelText: isTransfer(status) ? Qt.formatDateTime(retirada, "dd/MM/yyyy HH:MM") +  "\nTRANSFERÊNCIA-PENDENTE" : Qt.formatDateTime(retirada, "dd/MM/yyyy HH:MM")
+            secondaryLabelText: Qt.formatDateTime(retirada, "dd/MM/yyyy")
             showSeparator: true
             onClicked: showDetail(status,objeto_id.nome,retirada)
         }

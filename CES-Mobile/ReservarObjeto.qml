@@ -6,16 +6,16 @@ BasePage {
     title: qsTr("Objetos Disponíveis")
     objectName: "ReservarObjeto.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
+    onRequestUpdatePage: requestHttp.get("exibir_objetos/" + Settings.userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("objetos_disponiveis/")
+    onRequestHttpReady: requestHttp.get("exibir_objetos/" + Settings.userId)
 
     property var objects
     property int post: 0
-    property var dados: {"tipo": 2,"usuario_id": window.user.id}
+    property var dados: {"tipo": 2,"usuario_id": Settings.userId}
 
 
     function confirmar(idOrigem, idDestino) {

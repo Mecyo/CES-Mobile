@@ -34,6 +34,5 @@
         <file>RetirarItem.qml</file>
         <file>DetalhesObjeto.qml</file>
         <file>TransferenciasAtivas.qml</file>
-	<file>MenuSwipe.qml</file>
     </qresource>
 </RCC>
