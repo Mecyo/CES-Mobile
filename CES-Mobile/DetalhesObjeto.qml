@@ -96,7 +96,7 @@ BasePage {
                        text: qsTr("Devolver Objeto")
                        enabled: requestHttp.state !== requestHttp.stateLoading
                        visible: details.status === 2 && 7
-                       anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
+                       anchors {horizontalCenter: parent.horizontalCenter }
                        onClicked: {
                         var dados = ({})
                            dados.movimentacao_id = details.id
