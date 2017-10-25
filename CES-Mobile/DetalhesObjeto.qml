@@ -58,21 +58,21 @@ BasePage {
                 showSeparator: true
                 primaryLabelText: qsTr("Nome do Objeto")
                 secondaryLabelText: details.objeto_id.nome
-                primaryIconName: "user"
+                primaryIconName: "cog"
             }
 
             ListItem {
                 showSeparator: true
                 primaryLabelText: qsTr("Responsável")
-                secondaryLabelText: details.usuario_id.profileName.nome + " " + details.usuario_id.name
-                primaryIconName: "envelope"
+                secondaryLabelText: details.usuario_id.perfilUsuario_id.nome + " " + details.usuario_id.name
+                primaryIconName: "user"
             }
 
             ListItem {
                 showSeparator: true
                 primaryLabelText: qsTr("Data de Retirada")
                 secondaryLabelText: Qt.formatDateTime(details.retirada, "dd/MM/yyyy HH:mm")
-                primaryIconName: "envelope"
+                primaryIconName: "calendar"
                 visible: details.retirada !== null ? true : false
             }
 
@@ -80,7 +80,7 @@ BasePage {
                 showSeparator: true
                 primaryLabelText: qsTr("Data de Reserva")
                 secondaryLabelText: Qt.formatDateTime(details.reserva, "dd/MM/yyyy HH:mm")
-                primaryIconName: "bookmark"
+                primaryIconName: "calendar"
                 visible: details.reserva !== null ? true : false
             }
 

@@ -33,14 +33,12 @@ BasePage {
                 Tumbler {
                     id: hoursTumbler
                     model: 24
-                    delegate: delegateComponent
                     width: parent.width * 0.50
                 }
 
                 Tumbler {
                     id: minutesTumbler
                     model: 60
-                    delegate: delegateComponent
                     width: parent.width * 0.50
                 }
             }
