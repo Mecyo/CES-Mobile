@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>BasePage.qml</file>
+        <file>LoadFilterDialogData.qml</file>
         <file>CustomListView.qml</file>
         <file>CustomTextField.qml</file>
         <file>Datepicker.qml</file>
@@ -33,5 +34,7 @@
         <file>ShowObjectDetails.qml</file>
         <file>RetirarItem.qml</file>
         <file>RetirarItemDetail.qml</file>
+        <file>DetalhesObjeto.qml</file>
+        <file>TransferenciasAtivas.qml</file>
     </qresource>
 </RCC>

@@ -14,11 +14,11 @@ ToolBar {
         },
         State {
             name: "goback"
-            PropertyChanges { target: toolButtonFirst; iconName: "arrow_left"; action: Settings.events.goBack }
+            PropertyChanges { target: toolButtonFirst; iconName: "arrow-left"; action: Settings.events.goBack }
         },
         State {
             name: "search"
-            PropertyChanges { target: toolButtonFirst; iconName: "arrow_left"; action: Settings.events.cancel }
+            PropertyChanges { target: toolButtonFirst; iconName: "arrow-left"; action: Settings.events.cancel }
         }
     ]
 

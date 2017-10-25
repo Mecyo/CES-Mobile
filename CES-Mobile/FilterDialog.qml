@@ -26,7 +26,21 @@ Popup {
     property alias title: _title.text
     property int currentField: 0
 
-    signal accepted()
+    function getFilterData() {
+        return {
+            "objectType": objectType.currentText,
+            "objectStatus": objectStatus.currentText,
+            "dataRetirada": dateField.text
+        }
+    }
+
+    Timer {
+        id: asyncNotify
+        interval: 250; running: false
+        onTriggered: accepted(getFilterData())
+    }
+
+    signal accepted(var filterData)
     signal rejected()
 
     Connections {
@@ -68,7 +82,7 @@ Popup {
             ComboBox {
                 id: objectType
                 width: parent.width
-//                onAccepted: { }
+                model: window.objectTypes
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -85,7 +99,7 @@ Popup {
             ComboBox {
                 id: objectStatus
                 width: parent.width
-//                onAccepted: { }
+                model: ["Indisponivel"]
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -109,39 +123,17 @@ Popup {
                 width: parent.width; height: 50
 
                 Label {
-                    text: qsTr("Start date:")
+                    text: qsTr("Data reserva:")
                     anchors.verticalCenter:  parent.verticalCenter
                 }
 
                 TextField {
-                    id: startDateField
+                    id: dateField
                     readOnly: true
                     width: parent.width * 0.70
                     onFocusChanged: {
                         if (focus) {
                             currentField = 1
-                            datepicker.open()
-                        }
-                    }
-                }
-            }
-
-            Row {
-                spacing: 10
-                width: parent.width; height: 50
-
-                Label {
-                    text: qsTr("End date:")
-                    anchors.verticalCenter:  parent.verticalCenter
-                }
-
-                TextField {
-                    id: endDateField
-                    readOnly: true
-                    width: parent.width * 0.70
-                    onFocusChanged: {
-                        if (focus) {
-                            currentField = 2
                             datepicker.open()
                         }
                     }
@@ -162,8 +154,8 @@ Popup {
             Material.elevation: 0
             Material.foreground: Material.BlueGrey
             onClicked: {
-                rejected()
                 _dialog.close()
+                rejected()
             }
         }
 
@@ -174,8 +166,8 @@ Popup {
             Material.elevation: 0
             Material.foreground: Material.BlueGrey
             onClicked: {
-                accepted()
                 _dialog.close()
+                asyncNotify.start()
             }
         }
     }

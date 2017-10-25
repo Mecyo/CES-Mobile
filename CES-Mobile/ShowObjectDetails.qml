@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 
 BasePage {
-    title: qsTr("Detalhes do objeto")
+    title: qsTr("Reservar objeto")
     objectName: "ShowObjectDetails.qml"
     hasListView: false
     toolBarState: "goback"

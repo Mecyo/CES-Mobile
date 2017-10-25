@@ -3,17 +3,19 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    title: qsTr("Objetos Disponíveis")
-    objectName: "ReservarObjeto.qml"
+    title: qsTr("Transferência")
+    objectName: "Transference.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("exibir_objetos/" + Settings.userId)
+    onRequestUpdatePage: requestHttp.post("listar_transferencias_usuario/", JSON.stringify(dados))
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("exibir_objetos/" + Settings.userId)
+    onRequestHttpReady: requestHttp.post("listar_transferencias_usuario/", JSON.stringify(dados))
 
     property var objects
+    property int objetoId
+    property int movimentacaoId
     property int post: 0
     property var dados: {"tipo": 2,"usuario_id": Settings.userId}
 
@@ -23,16 +25,15 @@ BasePage {
         dados.movimentacao_origem = idOrigem
         dados.movimentacao_destino = idDestino
 
-        requestHttp.post("solicitar_reserva/", JSON.stringify(dados))
+        requestHttp.post("confirmar_transferir_objeto/", JSON.stringify(dados))
         post = 1
     }
+    function cancelar(id) {
+        var dados = ({})
+        dados.transferencia_id = id
 
-    function showDetail(delegateIndex) {
-        pageStack.push("ReservarObjectDetails.qml", {"details":objects[delegateIndex]})
-    }
-
-    function viewHome() {
-        pageStack.push("Home.qml")
+        requestHttp.post("cancelar_transferir_objeto/", JSON.stringify(dados))
+        post = 2
     }
 
     Datepicker {
@@ -43,6 +44,13 @@ BasePage {
         id: filterDialog
     }
 
+    Timer {
+        id: popCountdow
+        interval: 2000; repeat: false
+        onTriggered: pageStack.push(Qt.resolvedUrl("Home.qml"))
+
+    }
+
     Connections {
         target: window
         onEventNotify: if (eventName === "filter") filterDialog.open()
@@ -51,6 +59,7 @@ BasePage {
     Connections {
         target: requestHttp
         onFinished: {
+            console.log("Status ===  " + statusCode)
             if (statusCode != 200) {
                 post = 0
                 return
@@ -63,6 +72,7 @@ BasePage {
                 toast.show(qsTr("Você cancelou a transferência!"), true, 2900)
                 popCountdow.start()
             }
+
             objects = response
             for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
@@ -73,14 +83,16 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            primaryIconName: tipoObjeto_id.icone
+//            badgeText: index+1
+            secondaryIconName: "thumbs-up"
+            secondaryActionIcon.onClicked: confirmar(movimentacao_id_origem.id, movimentacao_id_destino.id)
+            tertiaryIconName: "thumbs-down"
+            tertiaryActionIcon.onClicked: cancelar(id)
+            badgeBackgroundColor: "white"
             width: parent.width; height: 60
-            primaryLabelText: nome
-            secondaryLabelText: tipoObjeto_id.nome
+            primaryLabelText: movimentacao_id_origem.usuario_id.name
+            secondaryLabelText: movimentacao_id_origem.objeto_id.nome
             showSeparator: true
-            onClicked: showDetail(index)
-            secondaryActionIcon.onClicked: viewHome()
-            //secondaryActionIcon.onClicked: confirmar(movimentacao_id_origem.id, movimentacao_id_destino.id)
         }
     }
 }

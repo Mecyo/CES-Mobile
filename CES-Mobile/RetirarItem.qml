@@ -3,24 +3,29 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    title: qsTr("RetirarItem")
+    title: qsTr("Retirar Item")
     objectName: "RetirarItem.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
+    onRequestUpdatePage: requestHttp.get("objetos_disponiveis_usuario/" + Settings.userId)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("objetos_disponiveis/")
+    onRequestHttpReady: requestHttp.get("objetos_disponiveis_usuario/" + Settings.userId)
 
     property var objects
+    property int post: 0
 
     function showDetail(delegateIndex) {
         pageStack.push("RetirarItemDetail.qml", {"details":objects[delegateIndex]})
     }
 
-    function viewHome() {
-        pageStack.push("Home.qml")
+    function solicitarObjeto(objetoId) {
+        var dados = ({})
+        dados.objeto_id = objetoId
+        dados.usuario_id = Settings.userId
+        requestHttp.post("emprestar_objeto/", JSON.stringify(dados))
+        post = 1
     }
 
     Datepicker {
@@ -29,6 +34,12 @@ BasePage {
 
     FilterDialog {
         id: filterDialog
+    }
+
+    Timer {
+        id: popCountdow
+        interval: 2000; repeat: false
+        onTriggered: pageStack.push("Home.qml")
     }
 
     Connections {
@@ -41,6 +52,10 @@ BasePage {
         onFinished: {
             if (statusCode != 200)
                 return
+            if(post) {
+                toast.show(qsTr("Você retirou o objeto com sucesso!"), true, 2900)
+                popCountdow.start()
+            }
             objects = response
             for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
@@ -51,9 +66,9 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            badgeText: index+1
-            secondaryIconName: "reply"
-            badgeBackgroundColor: (index%2) ? "red" : "yellow"
+            primaryIconName: tipoObjeto_id.icone
+            tertiaryIconName: "reply"
+            tertiaryActionIcon.onClicked: solicitarObjeto(id)
             width: parent.width; height: 60
             primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome

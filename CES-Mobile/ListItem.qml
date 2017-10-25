@@ -193,7 +193,7 @@ Rectangle {
         Item {
             id: secondaryAction
             width: visible ? 40 : 0; height: parent.height; anchors.right: tertiaryAction.left
-            visible: (secondaryActionLoader.active || secondaryActionImage.visible || secondaryActionIcon.visible)
+            //visible: (secondaryActionLoader.active || secondaryActionImage.visible || secondaryActionIcon.visible)
 
             Loader {
                 id: secondaryActionLoader
@@ -233,7 +233,7 @@ Rectangle {
         Item {
             id: tertiaryAction
             width: visible ? 40 : 0; height: parent.height; anchors.right: parent.right
-            visible: (tertiaryActionLoader.active || tertiaryActionImage.visible || tertiaryActionIcon.visible)
+            //visible: (tertiaryActionLoader.active || tertiaryActionImage.visible || tertiaryActionIcon.visible)
 
             Loader {
                 id: tertiaryActionLoader
