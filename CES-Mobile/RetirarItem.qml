@@ -16,7 +16,7 @@ BasePage {
     property var objects
 
     function showDetail(delegateIndex) {
-        pageStack.push("ShowObjectDetails.qml", {"details":objects[delegateIndex]})
+        pageStack.push("RetirarItemDetail.qml", {"details":objects[delegateIndex]})
     }
 
     function viewHome() {
@@ -59,7 +59,7 @@ BasePage {
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
             onClicked: showDetail(index)
-            onSecondaryActionIconClicked: viewHome()
+            secondaryActionIcon.onClicked: viewHome()
         }
     }
 }
