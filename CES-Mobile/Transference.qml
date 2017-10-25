@@ -19,7 +19,7 @@ BasePage {
     Component.onCompleted: console.log("Objeto: ", JSON.stringify(objeto))
 
     function transferir(delegateIndex) {
-        //Implementar dialog de confirmação da transferência
+        //Implementar dialogo de confirmação da transferência
     }
 
     Datepicker {
