@@ -34,6 +34,7 @@
         <file>ReservarObjeto.qml</file>
         <file>ShowObjectDetails.qml</file>
         <file>RetirarItem.qml</file>
+        <file>RetirarItemDetail.qml</file>
         <file>DetalhesObjeto.qml</file>
         <file>TransferenciasAtivas.qml</file>
     </qresource>

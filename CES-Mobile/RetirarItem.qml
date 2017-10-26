@@ -16,8 +16,8 @@ BasePage {
     property var objects
     property int post: 0
 
-    function showDetail(status,nomeObjeto,dataRetirada) {
-        pageStack.push("DetalhesObjeto.qml", {"status": status, "nomeObjeto": nomeObjeto, "dataRetirada": dataRetirada})
+    function showDetail(delegateIndex) {
+        pageStack.push("RetirarItemDetail.qml", {"details":objects[delegateIndex]})
     }
 
     function solicitarObjeto(objetoId) {
@@ -73,6 +73,8 @@ BasePage {
             primaryLabelText: nome
             secondaryLabelText: tipoObjeto_id.nome
             showSeparator: true
+            onClicked: showDetail(index)
+            secondaryActionIcon.onClicked: viewHome()
         }
     }
 }

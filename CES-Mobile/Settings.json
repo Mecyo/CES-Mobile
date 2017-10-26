@@ -1,5 +1,5 @@
 {
-    "userId": 1,
+    "userId": 2,
     "forceClearCache": false,
     "applicationName": "Emile",
     "organizationName": "Emile - IFBA Campus Salvador",
@@ -9,10 +9,10 @@
     "usesDrawer": true,
     "usesMaterialTheme": true,
     "restService": {
-        "userServiceName": "teste",
-        "userServicePassword": "teste",
-        "baseUrl2": "http://apirestces.pythonanywhere.com/api_rest/",
-        "baseUrl": "http://127.0.0.1:8000/api_rest/",
+        "userServiceName": "",
+        "userServicePassword": "",
+        "baseUrl": "http://apirestces.pythonanywhere.com/api_rest/",
+        "baseUrl2": "http://127.0.0.1:8000/api_rest/",
         "baseImagesUrl": ""
     },
     "fontSize": {
