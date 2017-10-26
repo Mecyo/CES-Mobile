@@ -13,16 +13,6 @@ BasePage {
     }
     onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
 
-  /*onListViewReady: {
-        var json = [
-            {"status": 0, "objeto_id": {"nomeObjeto": "Projetor sony"}, "dataRetirada": "16/07/802701 14:00"},
-            {"status": 1, "objeto_id": {"nomeObjeto": "Chave sony"}, "dataRetirada": "16/07/2701 14:00"},
-            {"status": 2, "objeto_id": {"nomeObjeto": "Projetor sega"}, "dataRetirada": "15/07/9000 14:00"},
-            {"status": 2, "objeto_id": {"nomeObjeto": "Chave sega"}, "dataRetirada": "28/07/1993 14:00"}
-        ]
-        for (var i = 0; i < json.length; i++)
-            listViewModel.append(json[i])
-    }*/
 
     property var objects
     property var selecionado
