@@ -26,11 +26,20 @@ Popup {
     property alias title: _title.text
     property int currentField: 0
 
+    function searchByText(text, list) {
+        for(var i = 0; i < list.length; ++i)
+        {
+            if(list[i].nome === text)
+                return list[i].id
+        }
+    }
+
     function getFilterData() {
         return {
-            "objectType": objectType.currentText,
-            "objectStatus": objectStatus.currentText,
-            "dataRetirada": dateField.text
+            "objeto_id": { "tipoObjeto_id": searchByText(objectType.currentText, window.objectTypes),
+                           "status": searchByText(objectStatus.currentText, window.objectStatus),
+                           "nome": search.text
+            }
         }
     }
 
@@ -82,7 +91,12 @@ Popup {
             ComboBox {
                 id: objectType
                 width: parent.width
-                model: window.objectTypes
+                model: {
+                    var show = []
+                    for(var i = 0; i < window.objectTypes.length; ++i)
+                        show.push(window.objectTypes[i].nome)
+                    return show
+                }
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -99,7 +113,13 @@ Popup {
             ComboBox {
                 id: objectStatus
                 width: parent.width
-                model: ["Indisponivel"]
+                model: {
+                    var show = []
+                    for(var i = 0; i < window.objectStatus.length; ++i)
+                        show.push(window.objectStatus[i].status)
+                    return show
+                }
+
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

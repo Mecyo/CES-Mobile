@@ -97,7 +97,12 @@ ApplicationWindow {
 
     Loader {
         asynchronous: false; active: true
-        source: "LoadFilterDialogData.qml"
+        source: "LoadFilterDialogTipos.qml"
+    }
+
+    Loader {
+        asynchronous: false; active: true
+        source: "LoadFilterDialogStatus.qml"
     }
 
     Toast {
