@@ -107,7 +107,7 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            primaryIconName: "gears"
+            primaryIconName: objeto_id.tipoObjeto_id.icone
             width: parent.width; height: 60
             primaryLabelText: objeto_id.nome
             secondaryLabelText: objects[index].devolucao !== null  ? "Devolvido em " + Qt.formatDateTime(objects[index].devolucao, "dd/MM/yyyy HH:mm") : "Não foi devolvido ainda"

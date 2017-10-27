@@ -23,10 +23,6 @@ BasePage {
         dados.objeto_id = details.objeto_id.id
         dados.movimentacao_id = details.id
         dados.novo_usuario_id = usuarionovoId
-    }
-
-    function transferir(delegateIndex) {
-        //Implementar dialogo de confirmação da transferência
         requestHttp.post("transferir_objeto/", JSON.stringify(dados))
         post = 1
     }
