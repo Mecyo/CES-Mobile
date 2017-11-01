@@ -64,7 +64,7 @@ BasePage {
             ListItem {
                 showSeparator: true
                 primaryLabelText: qsTr("Responsável")
-                secondaryLabelText: details.usuario_id.perfilUsuario_id.nome + " " + details.usuario_id.name
+                secondaryLabelText: /*details.usuario_id.perfilUsuario_id.nome*/ details.usuario_id.profileName.nome + " " + details.usuario_id.name
                 primaryIconName: "user"
             }
 
