@@ -19,8 +19,8 @@ ApplicationWindow {
         "profileName": "teacher",
         "profile": {
             "id": 1,
-            "email": "enoquejoseneas@gmail.com",
-            "name": "Enoque Joseneas"
+            "email": "user@gmail.com",
+            "name": "User"
         }
     }
 
