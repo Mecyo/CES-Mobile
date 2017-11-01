@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    title: qsTr("Transferência")
+    title: qsTr("Transferências")
     objectName: "TransferenciasAtivas.qml"
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.post("listar_transferencias_usuario/", JSON.stringify(dados))

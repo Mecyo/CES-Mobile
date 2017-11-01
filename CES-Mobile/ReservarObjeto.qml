@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 
 BasePage {
-    title: qsTr("Objetos Disponíveis")
+    title: qsTr("Todos os objetos")
     objectName: "ReservarObjeto.qml"
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.get("exibir_objetos/" + Settings.userId)
