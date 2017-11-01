@@ -10,6 +10,7 @@
 #include <QVariant>
 
 #include "requesthttp.h"
+#include "statusmovimentacaoenum.h"
 
 QVariant readFile(const QString &path)
 {
@@ -36,6 +37,8 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle(QStringLiteral("Material"));
 
     qmlRegisterType<RequestHttp>("RequestHttp", 1, 0, "RequestHttp");
+
+    StatusMovimentacaoEnum::init();
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty(QLatin1String("Settings"), readFile(":/Settings.json"));

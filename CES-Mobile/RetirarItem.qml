@@ -6,12 +6,14 @@ BasePage {
     title: qsTr("Objetos disponíveis")
     objectName: "RetirarItem.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("objetos_disponiveis/" + Settings.userId)
+    //onRequestUpdatePage: requestHttp.get("objetos_disponiveis_usuario/" + window.user.id)
+    onRequestUpdatePage: requestHttp.get("objetos_disponiveis/")
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("objetos_disponiveis/" + Settings.userId)
+    //onRequestHttpReady: requestHttp.get("objetos_disponiveis_usuario/" + window.user.id)
+    onRequestHttpReady: requestHttp.get("objetos_disponiveis/")
 
     property var objects
     property int post: 0
@@ -23,7 +25,7 @@ BasePage {
     function solicitarObjeto(objetoId) {
         var dados = ({})
         dados.objeto_id = objetoId
-        dados.usuario_id = Settings.userId
+        dados.usuario_id = window.user.id
         requestHttp.post("emprestar_objeto/", JSON.stringify(dados))
         post = 1
     }
@@ -52,7 +54,7 @@ BasePage {
         onFinished: {
             if (statusCode != 200)
                 return
-            if(post) {
+            if(post == 1) {
                 toast.show(qsTr("Você retirou o objeto com sucesso!"), true, 2900)
                 popCountdow.start()
             }

@@ -6,16 +6,19 @@ BasePage {
     title: qsTr("Histórico")
     objectName: "Historico.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
+    onRequestUpdatePage: requestHttp.get("movimentacoes_usuario/" + window.user.id)
     toolBarActions: {
        "toolButton3": {"action":"filter", "icon":"filter"},
        "toolButton4": {"action":"search", "icon":"search"}
     }
-    onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
-
+    onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + window.user.id)
 
     property var objects
     property var selecionado
+
+    function showDetail(delegateIndex) {
+        pageStack.push("HistoricObjectDetails.qml", {"details":objects[delegateIndex]})
+    }
 
     ListModel {
         id: buscaModel
@@ -34,10 +37,9 @@ BasePage {
         onAccepted: {
             // filterData
             if (originalModel.count == 0) {
-               for (var i = 0; i < listViewModel.count; i++)
-                   originalModel.append(listViewModel.get(i))
-           }
-            console.log("filterData: ", JSON.stringify(filterData))
+                for (var i = 0; i < listViewModel.count; i++)
+                    originalModel.append(listViewModel.get(i))
+            }
             for (i = 0; i< originalModel.count; ++i) {
                 var found = true
                 var compareObjc = ({})
@@ -102,6 +104,7 @@ BasePage {
             primaryLabelText: objeto_id.nome
             secondaryLabelText: objects[index].devolucao !== null  ? "Devolvido em " + Qt.formatDateTime(objects[index].devolucao, "dd/MM/yyyy HH:mm") : "Não foi devolvido ainda"
             showSeparator: true
+            onClicked: showDetail(index)
         }
     }
 }

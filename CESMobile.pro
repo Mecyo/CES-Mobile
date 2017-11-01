@@ -2,13 +2,20 @@ QT += quick quickcontrols2 network svg
 
 CONFIG += c++11 debug
 
-SOURCES += CES-Mobile/main.cpp CES-Mobile/requesthttp.cpp
+SOURCES += CES-Mobile/main.cpp CES-Mobile/requesthttp.cpp \
+    CES-Mobile/statusmovimentacaoenum.cpp
 
-HEADERS += CES-Mobile/requesthttp.h
+HEADERS += CES-Mobile/requesthttp.h \
+    CES-Mobile/statusmovimentacaoenum.h
 
 RESOURCES += CES-Mobile/qml.qrc
 
 OTHER_FILES += CES-Mobile/Settings.json
+
+# Additional import path used to resolve QML modules in Qt Creator's code model
+QML_IMPORT_PATH =
+
+QML_DESIGNER_IMPORT_PATH =
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

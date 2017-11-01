@@ -8,8 +8,8 @@ BasePage {
     listViewDelegate: pageDelegate
     onRequestUpdatePage: requestHttp.post("listar_transferencias_usuario/", JSON.stringify(dados))
     toolBarActions: {
-       "toolButton3": {"action":"filter", "icon":"filter"},
-       "toolButton4": {"action":"search", "icon":"search"}
+        "toolButton3": {"action":"filter", "icon":"filter"},
+        "toolButton4": {"action":"search", "icon":"search"}
     }
     onRequestHttpReady: requestHttp.post("listar_transferencias_usuario/", JSON.stringify(dados))
 
@@ -75,8 +75,10 @@ BasePage {
 
             objects = response
             console.log(JSON.stringify(objects))
-            for (var i = 0; i < response.length; ++i)
-                listViewModel.append(objects[i])
+            for (var i = 0; i < response.length; ++i) {
+                if(objects[i].movimentacao_id_destino.status === 6)
+                    listViewModel.append(objects[i])
+            }
         }
     }
 
@@ -84,7 +86,7 @@ BasePage {
         id: pageDelegate
 
         ListItem {
-            badgeText: index+1
+            primaryIconName: movimentacao_id_destino.objeto_id.tipoObjeto_id.icone
             tertiaryIconName: "check"
             tertiaryActionIcon.onClicked: confirmar(movimentacao_id_origem.id, movimentacao_id_destino.id)
             secondaryIconName: "times"
