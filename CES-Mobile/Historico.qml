@@ -14,6 +14,7 @@ BasePage {
     onRequestHttpReady: requestHttp.get("movimentacoes_usuario/" + Settings.userId)
 
 
+
     property var objects
     property var selecionado
 
@@ -39,25 +40,56 @@ BasePage {
            }
             console.log("filterData: ", JSON.stringify(filterData))
             for (i = 0; i< originalModel.count; ++i) {
-                var found = true
-                var compareObjc = ({})
+                var found = false
+               // var compareObjc = ({})
                 var objc = originalModel.get(i)
                 for (var p in filterData) {
-                    if (objc[p] !== filterData[p]) {
+
+                    console.log("filterData[p]", JSON.stringify(filterData[p]))
+                    console.log("filterData[p].nome", JSON.stringify(filterData[p].nome))
+
+                    if(filterData[p].nome !== ""){
+                        if (objc[p].nome !== filterData[p].nome) {
+                           console.log("objc[p].nome", JSON.stringify(objc[p].nome))
+                             console.log("filterData[p].nome", JSON.stringify(filterData[p].nome))
+                          found = false
+                              break
+                          }
+                    }
+
+                    if(objc[p].tipoObjeto_id.id !== filterData[p].tipoObjeto_id.id) {
+                        console.log("objc[p].tipoObjeto_id.id", JSON.stringify(objc[p].tipoObjeto_id.id))
+                        console.log("filterData[p].tipoObjeto_id.id", JSON.stringify(filterData[p].tipoObjeto_id.id))
                         found = false
                         break
                     }
+
+                    if(objc[p].status !== filterData[p].status) {
+                        console.log("objc[p].status", JSON.stringify(objc[p].status))
+                        console.log("filterData[p].status", JSON.stringify(filterData[p].status))
+                        found = false
+                        break
+                    }
+
+                    found = true
                 }
+
+
                 console.log("found: " + found)
                 console.log(JSON.stringify(filterData))
-                console.log(JSON.stringify(compareObjc))
+                console.log(JSON.stringify(objc))
+
                 if (found) {
                     console.log("found!")
                     buscaModel.append(objc)
                 }
             }
            if (!buscaModel.count)
+           {
+               listViewModel.clear()
                 return
+           }
+
            toolBarState = "cancel"
            listViewModel.clear()
            for (i = 0; i < buscaModel.count; ++i)

@@ -26,18 +26,26 @@ Popup {
     property alias title: _title.text
     property int currentField: 0
 
-    function searchByText(text, list) {
+    function searchByTextTipo(text, list) {
         for(var i = 0; i < list.length; ++i)
         {
-            if(list[i].nome === text)
+            if(list[i].nome === text || list[i].descricao === text)
                 return list[i].id
+        }
+    }
+
+    function searchByTextStatus(text, list) {
+        for(var i = 0; i < list.length; ++i)
+        {
+            if(list[i].nome === text || list[i].descricao === text)
+                return list[i].valor
         }
     }
 
     function getFilterData() {
         return {
-            "objeto_id": { "tipoObjeto_id": searchByText(objectType.currentText, window.objectTypes),
-                           "status": searchByText(objectStatus.currentText, window.objectStatus),
+            "objeto_id": { "tipoObjeto_id": { "id":searchByTextTipo(objectType.currentText, window.objectTypes) },
+                           "status": searchByTextStatus(objectStatus.currentText, window.objectStatus),
                            "nome": search.text
             }
         }
@@ -52,7 +60,7 @@ Popup {
     signal accepted(var filterData)
     signal rejected()
 
-    Connections {
+   /* Connections {
         target: datepicker
         onDateSelected: {
             var dateText = "%1Teste/%2/%3".arg(date.day).arg(date.month).arg(date.year)
@@ -61,7 +69,7 @@ Popup {
             else if (currentField == 2)
                 endDateField.text = dateText
         }
-    }
+    }*/
 
     Label {
         id: _title
@@ -116,7 +124,7 @@ Popup {
                 model: {
                     var show = []
                     for(var i = 0; i < window.objectStatus.length; ++i)
-                        show.push(window.objectStatus[i].status)
+                        show.push(window.objectStatus[i].descricao)
                     return show
                 }
 
@@ -133,7 +141,7 @@ Popup {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        Column {
+       /* Column {
             spacing: 0
             width: parent.width; height: 50
             anchors.horizontalCenter: parent.horizontalCenter
@@ -159,7 +167,7 @@ Popup {
                     }
                 }
             }
-        }
+        }*/
     }
 
     // dialog buttons

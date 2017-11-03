@@ -4,7 +4,7 @@ Item {
 
     id: item1
 
-    Component.onCompleted: requestHttp.get("status_objetos/")
+    Component.onCompleted: requestHttp.get("status_objeto/")
 
     RequestHttp {
         id: requestHttp
