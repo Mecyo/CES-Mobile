@@ -119,7 +119,7 @@ BasePage {
         anchors { top: detailsRec.bottom; topMargin: 50; horizontalCenter: parent.horizontalCenter }
         onClicked: {
             var data = ({})
-            data.usuario_id = window.user.profile.id
+            data.usuario_id = window.user.id
             data.objeto_id = details.id
             requestHttp.post("emprestar_objeto/", JSON.stringify(data))
         }

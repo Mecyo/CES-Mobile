@@ -59,7 +59,7 @@ BasePage {
             }
 
             Text {
-                text: details.nome
+                text: details.objeto_id.nome
                 anchors.horizontalCenter: parent.horizontalCenter
                 font { pointSize: 11; weight: Font.DemiBold }
             }

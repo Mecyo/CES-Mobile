@@ -5,24 +5,26 @@ import QtQuick.Layouts 1.3
 ApplicationWindow {
     id: window
     visible: true
-    width: 420; height: 600
+    width: 360; height: 580
     title: qsTr("Hello World")
     x: 510; y: 75
-    Component.onCompleted: {
+
+    BasePage {
+        id: base
+        onRequestHttpReady: requestHttp.get("exibir_usuario/" + 2)
+    }
+
+    Component.onCompleted: initSystem()
+    //Component.onProgressChanged: base.requestHttp.get("exibir_usuario/" + 2)
+
+    function initSystem() {
         pageStack.push(Qt.resolvedUrl("Home.qml"))
     }
 
     property bool isIOS: Qt.platform.os === "ios"
     property alias currentPage: pageStack.currentItem
     property bool isAndroid: Qt.platform.os === "android"
-    property var user: {
-        "profileName": "teacher",
-        "profile": {
-            "id": 1,
-            "email": "enoquejoseneas@gmail.com",
-            "name": "Enoque Joseneas"
-        }
-    }
+    property var user
 
     property var pages: [
         {
@@ -83,6 +85,16 @@ ApplicationWindow {
     // this signal can be used to pages make connections to some events
     // like push notification message|token, send by android QtActivity and iOS AppDelegate
     signal eventNotify(string eventName, var eventData)
+    
+    Connections {
+        target: base.requestHttp
+        onFinished: {
+            console.log(statusCode)
+            if (statusCode != 200)
+                return
+            user = response
+        }
+    }
 
     Loader {
         asynchronous: false

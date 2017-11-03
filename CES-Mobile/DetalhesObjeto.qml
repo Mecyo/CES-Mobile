@@ -10,7 +10,7 @@ BasePage {
     toolBarState: "goback"
 
     property var details
-    property var dados: ({"tipo": 2,"usuario_id": Settings.userId})
+    property var dados: ({"tipo": 2,"usuario_id": window.user.id})
 
     function statusName(status) {
         switch(status) {
