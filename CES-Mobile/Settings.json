@@ -1,8 +1,4 @@
 {
-<<<<<<< HEAD
-    "userId": 1,
-=======
->>>>>>> dc06d2afab1b2221a9dd46c03fdba2dba0386095
     "forceClearCache": false,
     "applicationName": "Emile",
     "organizationName": "Emile - IFBA Campus Salvador",
@@ -14,8 +10,8 @@
     "restService": {
         "userServiceName": "teste",
         "userServicePassword": "teste",
-        "baseUrl2": "http://apirestces.pythonanywhere.com/api_rest/",
-        "baseUrl": "http://127.0.0.1:8000/api_rest/",
+        "baseUrl": "http://apirestces.pythonanywhere.com/api_rest/",
+        "baseUrl2": "http://127.0.0.1:8000/api_rest/",
         "baseImagesUrl": ""
     },
     "fontSize": {
