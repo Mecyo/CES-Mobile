@@ -11,7 +11,6 @@ Page {
     property alias swipeChild: swipe
     property alias swipeChildCurrentItem: swipe.currentItem
 
-
     SwipeView {
         id: swipe
         anchors.fill: parent

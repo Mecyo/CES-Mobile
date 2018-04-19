@@ -9,12 +9,17 @@ BasePage {
     title: qsTr("Objetos com você")
     objectName: "Home.qml"
     listViewDelegate: pageDelegate
-    onRequestUpdatePage: requestHttp.get("movimentacoes_abertas_usuario/" + window.user.id)
-    onRequestHttpReady: requestHttp.get("movimentacoes_abertas_usuario/" + window.user.id)
+    onRequestUpdatePage: loadOnReadyOrUpdate("Update")
+    onRequestHttpReady: loadOnReadyOrUpdate("Ready")
 
     property var objects
     property int post: 0
     property var selecionado
+
+    function loadOnReadyOrUpdate(called){
+        if(window.user !== undefined)
+            requestHttp.get("movimentacoes_abertas_usuario/" + window.user.id)
+    }
 
     function showDetail(delegateIndex) {
         pageStack.push("DetalhesObjeto.qml", {"details": objects[delegateIndex]})
@@ -34,7 +39,8 @@ BasePage {
     }
 
     function isTransfer(status) {
-        return status === StatusMovimentacaoEnum.SOLICITADO_TRANSFERENCIA || status === StatusMovimentacaoEnum.TRANSFERENCIA_PENDENTE
+        return status === StatusMovimentacaoEnum.SOLICITADO_TRANSFERENCIA
+                || status === StatusMovimentacaoEnum.TRANSFERENCIA_PENDENTE
     }
 
     function getTransfer(delegateIndex) {
@@ -70,6 +76,17 @@ BasePage {
         }
     }
 
+    function getSecondaryLabel(index){
+        if(index >= 0){
+            if(objects[index].retirada !== undefined && objects[index].retirada !== null)
+                return Qt.formatDateTime(objects[index].retirada, "dd/MM/yyyy HH:mm");
+            else if(objects[index].reserva !== undefined && objects[index].reserva !== null)
+                return Qt.formatDateTime(objects[index].reserva, "dd/MM/yyyy HH:mm");
+        }
+
+        return "";
+    }
+
     Timer {
         id: popCountdow
         interval: 2000; repeat: false
@@ -87,6 +104,11 @@ BasePage {
     Connections {
         target: window
         onEventNotify: if (eventName === "filter") filterDialog.open()
+    }
+
+    Connections {
+        target: window
+        onSwipeChange: requestHttp.get("movimentacoes_abertas_usuario/" + window.user.id)
     }
 
     Connections {
@@ -109,8 +131,6 @@ BasePage {
             listViewModel.clear()
             for (var i = 0; i < response.length; ++i)
                 listViewModel.append(objects[i])
-
-            //rowUser.visible = true
         }
     }
 
@@ -136,6 +156,16 @@ BasePage {
         }
     }
 
+    function setOnclickSecondaryIcon(status, index){
+        switch(status)
+        {
+            case StatusMovimentacaoEnum.SOLICITADO_TRANSFERENCIA: return cancelTransfer(index)
+            case StatusMovimentacaoEnum.TRANSFERENCIA_PENDENTE: return getTransfer(index)
+
+            default: return devolver(index);
+        }
+    }
+
     Component {
         id: pageDelegate
 
@@ -144,12 +174,12 @@ BasePage {
             backgroundColor:  getBackgroundColor(status)
             primaryIconName: objeto_id.tipoObjeto_id.icone
             secondaryIconName:  getSecondaryIconName(status)
-            secondaryActionIcon.onClicked: status === StatusMovimentacaoEnum.SOLICITADO_TRANSFERENCIA ? cancelTransfer(index) : status === StatusMovimentacaoEnum.TRANSFERENCIA_PENDENTE ? getTransfer(index) : devolver(index)
+            secondaryActionIcon.onClicked: setOnclickSecondaryIcon(status, index)
             tertiaryIconName:  getTertiaryIconName(status)
             tertiaryActionIcon.onClicked: isTransfer(status) ? cancelTransfer(index) : transferir(index)
             width: parent.width; height: 60
             primaryLabelText: objeto_id.nome
-            secondaryLabelText: Qt.formatDateTime(objects[index].retirada === null ? objects[index].reserva : objects[index].retirada, "dd/MM/yyyy HH:mm")
+            secondaryLabelText: getSecondaryLabel(index)
             showSeparator: true
             onClicked: showDetail(index)
         }

@@ -8,8 +8,8 @@
     "usesDrawer": true,
     "usesMaterialTheme": true,
     "restService": {
-        "userServiceName": "teste",
-        "userServicePassword": "teste",
+        "userServiceName": "",
+        "userServicePassword": "",
         "baseUrl": "http://apirestces.pythonanywhere.com/api_rest/",
         "baseUrl2": "http://127.0.0.1:8000/api_rest/",
         "baseImagesUrl": ""

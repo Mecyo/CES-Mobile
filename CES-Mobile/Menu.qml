@@ -51,7 +51,7 @@ Drawer {
 
         Text {
             color: userInfoTextColor; textFormat: Text.RichText
-            text: user.name + "<br><b>" + user.email + "</b>"
+            text: window.user.name + "<br><b>" + window.user.email + "</b>"
             font.pointSize: Settings.fontSize.normal; Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
             anchors {
@@ -89,7 +89,7 @@ Drawer {
             selectedBackgroundColor: menuItemSelectedTextColor
             backgroundColor: menuBackgroundColor
             selected: absPath === window.currentPage.pageUrl
-            visible: showInMenu && window.pages[index].roles.indexOf(user.perfilUsuario.id) > -1
+            visible: showInMenu && window.pages[index].roles.indexOf(window.user.perfilUsuario.id) > -1
             onClicked: {
                 pageStack.pushIfNotExists(absPath, {"pageUrl":absPath})
                 close()
